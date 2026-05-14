@@ -2,106 +2,444 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FreshMarkt | Akıllı Market Deneyimi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Albert Heijn | Prototip</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-    <header>
-        <div class="location-picker" id="branch-trigger">
-            <i data-lucide="map-pin"></i>
-            <span id="current-branch-name">Kadıköy Merkez</span>
-            <i data-lucide="chevron-down"></i>
-        </div>
-        <div class="search-bar">
-            <i data-lucide="search"></i>
-            <span>Ürün, kategori veya marka ara...</span>
-        </div>
-    </header>
-
-    <main class="container">
+    <div id="app-container">
         
-        <!-- Personalized Section -->
-        <section id="personalized-deals">
-            <h2>
-                Gelecek Haftanın Fırsatları
-                <a href="#" class="view-all">Tümü</a>
-            </h2>
-            <div class="h-scroll" id="personalized-container">
-                <!-- JS will inject cards here -->
+        <!-- HEADER -->
+        <header>
+            <div class="header-left" id="branch-trigger">
+                <i data-lucide="map-pin" style="color: var(--ah-blue);"></i>
+                <span id="current-branch-name">Kadıköy Merkez</span>
+                <i data-lucide="chevron-down" style="width: 16px;"></i>
             </div>
-        </section>
-
-        <!-- Flash Deals Section -->
-        <section id="flash-deals">
-            <h2>
-                Son Şans Ürünleri (SKT İndirimi)
-                <span class="badge-flash" style="font-size: 0.6rem; padding: 2px 6px; border-radius: 4px;">Şubeye Özel</span>
-            </h2>
-            <div class="h-scroll" id="flash-container">
-                <!-- JS will inject cards here -->
+            <div class="header-right">
+                <div class="icon-btn" id="open-scan-header"><i data-lucide="scan-barcode"></i></div>
+                <div class="icon-btn"><i data-lucide="user"></i></div>
             </div>
-        </section>
+        </header>
 
-        <!-- Categories -->
-        <section id="categories">
-            <h2>Kategoriler</h2>
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
-                <div class="nav-item">
-                    <div style="background: #e0f7f9; padding: 15px; border-radius: 12px;"><i data-lucide="apple"></i></div>
-                    <span>Manav</span>
+        <div class="content-area">
+            
+            <!-- HOME SECTION -->
+            <section id="home-section" class="page-section active">
+                <div class="bonus-box">
+                    <span class="bonus-tag">MIJN BONUS BOX</span>
+                    <h2 style="font-size: 1.4rem; line-height: 1.2;">5 ekstra indirimini aktifleştir!</h2>
+                    <p style="font-size: 0.8rem; margin-top: 8px; opacity: 0.9;">Bu haftaya özel seçtiğimiz ürünleri kaçırma.</p>
                 </div>
-                <div class="nav-item">
-                    <div style="background: #fff3e0; padding: 15px; border-radius: 12px;"><i data-lucide="coffee"></i></div>
-                    <span>İçecek</span>
+
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        Senin İçin <span style="background: var(--ah-orange); padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; color: white;">ÖZEL</span>
+                    </h3>
+                    <div class="product-grid" id="personalized-container">
+                        <!-- JS injected -->
+                    </div>
                 </div>
-                <div class="nav-item">
-                    <div style="background: #f3e5f5; padding: 15px; border-radius: 12px;"><i data-lucide="beef"></i></div>
-                    <span>Kasap</span>
+
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 12px;">Son Şans Fırsatları</h3>
+                    <div class="product-grid" id="flash-container">
+                        <!-- JS injected -->
+                    </div>
                 </div>
-                <div class="nav-item">
-                    <div style="background: #e8f5e9; padding: 15px; border-radius: 12px;"><i data-lucide="cookie"></i></div>
-                    <span>Atıştırmalık</span>
+
+                <div style="margin-top: 24px;">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=400&auto=format&fit=crop" style="width: 100%; border-radius: 16px; height: 120px; object-fit: cover; margin-bottom: 12px;">
+                    <h4 style="font-size: 0.9rem;">Taze ve Yerel: Yeni Sezon Ürünleri Geldi</h4>
                 </div>
+            </section>
+
+            <!-- BONUS SECTION -->
+            <section id="bonus-section" class="page-section">
+                <h2>Tüm İndirimler</h2>
+                <div id="all-bonus-items" class="product-grid" style="margin-top: 16px;">
+                    <!-- JS injected -->
+                </div>
+            </section>
+
+            <!-- PRODUCTS SECTION -->
+            <section id="products-section" class="page-section">
+                <h2>Kategoriler</h2>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 16px;">
+                    <div class="bonus-box" style="padding: 12px; height: 100px; display: flex; align-items: flex-end;">Manav</div>
+                    <div class="bonus-box" style="padding: 12px; height: 100px; display: flex; align-items: flex-end; background: #444;">Kasap</div>
+                    <div class="bonus-box" style="padding: 12px; height: 100px; display: flex; align-items: flex-end; background: #666;">Fırın</div>
+                    <div class="bonus-box" style="padding: 12px; height: 100px; display: flex; align-items: flex-end; background: #888;">İçecek</div>
+                </div>
+            </section>
+
+            <!-- MY LIST / CART SECTION -->
+            <section id="mylist-section" class="page-section">
+                <h2>Sepetim</h2>
+                <div id="cart-items-container" style="margin-top: 16px;">
+                    <!-- JS injected -->
+                </div>
+                <div id="cart-empty-state" style="text-align: center; padding: 40px 0;">
+                    <i data-lucide="shopping-basket" style="width: 48px; color: #ccc;"></i>
+                    <p style="color: #999; margin-top: 10px;">Listeniz henüz boş.</p>
+                </div>
+                <div class="cart-summary" id="cart-summary-box" style="display: none;">
+                    <div class="summary-row">
+                        <span>Ara Toplam</span>
+                        <span id="subtotal">₺0.00</span>
+                    </div>
+                    <div class="summary-row savings-text">
+                        <span>Bonus İndirimi</span>
+                        <span id="savings">-₺0.00</span>
+                    </div>
+                    <div class="summary-row" style="font-weight: 900; font-size: 1.2rem; border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px;">
+                        <span>Toplam</span>
+                        <span id="total-price">₺0.00</span>
+                    </div>
+                    <button style="width: 100%; background: var(--ah-blue); color: white; border: none; padding: 16px; border-radius: 30px; font-weight: 800; margin-top: 15px;">Ödeme Yap</button>
+                </div>
+            </section>
+
+            <!-- PROFILE SECTION -->
+            <section id="profile-section" class="page-section">
+                <h2>Profilim</h2>
+                <div class="impact-panel">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <i data-lucide="leaf" style="color: #2e7d32;"></i>
+                        <span style="font-weight: 800; color: #2e7d32;">GREEN IMPACT</span>
+                    </div>
+                    <div class="impact-value" id="sustainability-value">4.2 kg</div>
+                    <p style="font-size: 0.8rem; color: #4a7c4d; margin-top: 5px;">Bu ana kadar kurtardığınız gıda miktarı. Doğaya katkınız için teşekkürler!</p>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- BOTTOM NAV -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-target="home-section">
+                <i data-lucide="home"></i>
+                <span>Home</span>
             </div>
-        </section>
+            <div class="nav-item" data-target="bonus-section">
+                <i data-lucide="tag"></i>
+                <span>Bonus</span>
+            </div>
+            <div class="nav-scan-btn" id="open-scan-footer">
+                <i data-lucide="qr-code" style="width: 32px; height: 32px;"></i>
+            </div>
+            <div class="nav-item" data-target="mylist-section">
+                <div style="position: relative;">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cart-badge" style="position: absolute; top: -5px; right: -8px; background: var(--ah-orange); color: white; font-size: 0.6rem; padding: 2px 5px; border-radius: 10px; display: none;">0</span>
+                </div>
+                <span>Mijn lijst</span>
+            </div>
+            <div class="nav-item" data-target="profile-section">
+                <i data-lucide="user"></i>
+                <span>Profil</span>
+            </div>
+        </nav>
 
-        <!-- KPI Info Card -->
-        <section class="glass" style="padding: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; margin-top: 20px;">
-            <h3 style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
-                <i data-lucide="leaf"></i> Birlikte Başarıyoruz
-            </h3>
-            <p style="font-size: 0.85rem; opacity: 0.9;">
-                Bu hafta son şans ürünlerini tercih ederek <b>4.2 kg</b> gıda israfını önlediniz ve bütçenize <b>₺240</b> katkı sağladınız.
-            </p>
-        </section>
+        <!-- BONUSKAART MODAL -->
+        <div id="bonuskaart-modal">
+            <div class="modal-content">
+                <div id="close-modal" style="position: absolute; top: 15px; right: 15px; cursor: pointer;"><i data-lucide="x"></i></div>
+                <h3 style="color: var(--ah-blue);">Mijn Bonuskaart</h3>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 4px;">Kasada okutarak indirimlerden yararlanın.</p>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=AH-BONUS-123456" alt="Barcode" class="barcode-img">
+                <div style="font-family: monospace; font-weight: 700;">8012 3456 7890</div>
+                <button id="simulate-scan" style="margin-top: 20px; background: var(--ah-orange); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 700;">KARTI OKUT (SİMÜLE ET)</button>
+            </div>
+        </div>
 
-    </main>
+    </div>
 
-    <nav class="bottom-nav">
-        <div class="nav-item active">
-            <i data-lucide="home"></i>
-            <span>Ana Sayfa</span>
-        </div>
-        <div class="nav-item">
-            <i data-lucide="layers"></i>
-            <span>Kategoriler</span>
-        </div>
-        <div class="nav-item">
-            <i data-lucide="shopping-cart"></i>
-            <span>Sepetim</span>
-        </div>
-        <div class="nav-item">
-            <i data-lucide="user"></i>
-            <span>Profilim</span>
-        </div>
-    </nav>
+    <script>
+        // --- DATA ---
+        const PRODUCTS = [
+            { id: 'p1', name: 'AH Elmalar (File)', category: 'Manav', price: 3.50, discountedPrice: 2.50, image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6bcd6?q=80&w=200&auto=format&fit=crop', isNearExpiry: false },
+            { id: 'p2', name: 'AH Portakal Suyu 1L', category: 'İçecek', price: 4.00, discountedPrice: 3.20, image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=200&auto=format&fit=crop', isNearExpiry: false },
+            { id: 'p3', name: 'AH Salkım Domates', category: 'Manav', price: 2.80, discountedPrice: 1.80, image: 'https://images.unsplash.com/photo-1590621466441-8602f0677227?q=80&w=200&auto=format&fit=crop', isNearExpiry: true },
+            { id: 'p4', name: 'AH Avokado 2\'li', category: 'Manav', price: 3.20, discountedPrice: 2.40, image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?q=80&w=200&auto=format&fit=crop', isNearExpiry: false },
+            { id: 'p5', name: 'AH Tam Buğday Ekmek', category: 'Fırın', price: 1.80, discountedPrice: 1.20, image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=200&auto=format&fit=crop', isNearExpiry: true },
+            { id: 'p6', name: 'AH Dana Kıyma 500g', category: 'Kasap', price: 12.00, discountedPrice: 8.50, image: 'https://images.unsplash.com/photo-1588168333986-5078d3ae3976?q=80&w=200&auto=format&fit=crop', isNearExpiry: true },
+            { id: 'p7', name: 'AH Organik Süt 1L', category: 'Süt & Kahvaltı', price: 2.10, discountedPrice: 1.75, image: 'https://images.unsplash.com/photo-1550583724-1255818c0533?q=80&w=200&auto=format&fit=crop', isNearExpiry: false },
+            { id: 'p8', name: 'AH Yoğurt 500g', category: 'Süt & Kahvaltı', price: 2.50, discountedPrice: 1.90, image: 'https://images.unsplash.com/photo-1571212247484-0ef7d214a630?q=80&w=200&auto=format&fit=crop', isNearExpiry: false },
+            { id: 'p9', name: 'AH Muz (İthal)', category: 'Manav', price: 2.90, discountedPrice: 2.20, image: 'https://images.unsplash.com/photo-1603833665858-e61d17a86224?q=80&w=200&auto=format&fit=crop', isNearExpiry: false },
+            { id: 'p10', name: 'AH Tavuk Göğsü 400g', category: 'Kasap', price: 7.80, discountedPrice: 5.90, image: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?q=80&w=200&auto=format&fit=crop', isNearExpiry: true },
+        ];
 
-    <script type="module" src="app.js"></script>
+        const BRANCHES = [
+            { id: 'b1', name: 'Kadıköy Merkez' },
+            { id: 'b2', name: 'Moda Sahil' },
+            { id: 'b3', name: 'Ataşehir Batı' },
+        ];
+
+        const USER_HISTORY = [
+            { sku: 'p1', quantity: 4 },
+            { sku: 'p7', quantity: 3 },
+            { sku: 'p2', quantity: 2 },
+        ];
+
+        const FLASH_DEALS = {
+            'b1': [
+                { sku: 'p3', discount: 0.4, stock: 3, expiry: 'Bugün 20:00' },
+                { sku: 'p6', discount: 0.6, stock: 1, expiry: 'Bugün 21:00' },
+                { sku: 'p10', discount: 0.5, stock: 2, expiry: 'Bugün 19:00' }
+            ],
+            'b2': [
+                { sku: 'p4', discount: 0.3, stock: 5, expiry: 'Yarın 09:00' },
+                { sku: 'p5', discount: 0.5, stock: 4, expiry: 'Bugün 22:00' }
+            ],
+            'b3': [
+                { sku: 'p10', discount: 0.4, stock: 8, expiry: 'Yarın 12:00' }
+            ]
+        };
+
+        // --- ENGINE ---
+        function getPersonalizedDeals() {
+            const frequency = {};
+            USER_HISTORY.forEach(item => { frequency[item.sku] = (frequency[item.sku] || 0) + item.quantity; });
+            const topSkus = Object.entries(frequency).sort((a, b) => b[1] - a[1]).map(entry => entry[0]).slice(0, 3);
+            return topSkus.map(sku => PRODUCTS.find(p => p.id === sku));
+        }
+
+        // --- APP LOGIC ---
+        let currentBranch = BRANCHES[0];
+        let cart = [];
+        let sustainabilityScore = 4.2;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+            lucide.createIcons();
+        });
+
+        function initApp() {
+            renderHome();
+            setupNavigation();
+            setupModals();
+            setupBranchPicker();
+            setupCartLogic();
+        }
+
+        function renderHome() {
+            renderPersonalizedDeals();
+            renderFlashDeals();
+        }
+
+        function renderPersonalizedDeals() {
+            const container = document.getElementById('personalized-container');
+            const deals = getPersonalizedDeals();
+            container.innerHTML = deals.map(product => `
+                <div class="product-card fade-in">
+                    <span class="bonus-tag" style="background: var(--ah-blue); position: absolute; top: 10px; left: 10px; z-index: 10;">SENİN İÇİN</span>
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    <div style="font-size: 0.85rem; font-weight: 700; height: 36px; overflow: hidden; margin-bottom: 8px;">${product.name}</div>
+                    <div style="margin-top: auto;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div>
+                                <div class="price-sub">₺${product.price.toFixed(2)}</div>
+                                <div class="price-main">₺${(product.discountedPrice).toFixed(2)}</div>
+                                <div style="font-size: 0.65rem; color: var(--ah-blue); font-weight: 700;">%25 İNDİRİM</div>
+                            </div>
+                            <button class="add-btn-circle" data-id="${product.id}"><i data-lucide="plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function renderFlashDeals() {
+            const container = document.getElementById('flash-container');
+            const deals = FLASH_DEALS[currentBranch.id] || [];
+            container.innerHTML = deals.map(deal => {
+                const product = PRODUCTS.find(p => p.id === deal.sku);
+                const isUrgent = deal.stock <= 3;
+                return `
+                    <div class="product-card fade-in">
+                        <span class="bonus-tag" style="background: var(--danger); position: absolute; top: 10px; left: 10px; z-index: 10;">SON ŞANS</span>
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div style="font-size: 0.85rem; font-weight: 700; height: 36px; overflow: hidden; margin-bottom: 8px;">${product.name}</div>
+                        <div style="margin-top: auto;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                                <div>
+                                    <div class="price-sub">₺${product.price.toFixed(2)}</div>
+                                    <div class="price-main" style="color: var(--danger);">₺${(product.price * (1-deal.discount)).toFixed(2)}</div>
+                                    <div style="font-size: 0.65rem; color: var(--danger); font-weight: 700;">%${deal.discount*100} İNDİRİM</div>
+                                </div>
+                                <button class="add-btn-circle" data-id="${product.id}" style="background: var(--danger);"><i data-lucide="plus"></i></button>
+                            </div>
+                            <div class="stock-warning">
+                                <i data-lucide="zap" style="width: 10px; fill: var(--ah-orange); color: var(--ah-orange);"></i>
+                                ${isUrgent ? 'AZALIYOR: ' : ''}${deal.stock} Adet
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function setupNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('.page-section');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const target = item.getAttribute('data-target');
+                    if (!target) return;
+                    navItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    sections.forEach(s => s.classList.remove('active'));
+                    document.getElementById(target).classList.add('active');
+                    if (target === 'mylist-section') renderCart();
+                    if (target === 'bonus-section') renderBonusSection();
+                });
+            });
+        }
+
+        function renderBonusSection() {
+            const container = document.getElementById('all-bonus-items');
+            container.innerHTML = PRODUCTS.map(product => `
+                <div class="product-card">
+                    <span class="bonus-tag">BONUS</span>
+                    <img src="${product.image}" class="product-image">
+                    <div style="font-size: 0.8rem; font-weight: 700; height: 32px; overflow: hidden;">${product.name}</div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto;">
+                        <div>
+                            <div class="price-sub">₺${product.price.toFixed(2)}</div>
+                            <div class="price-main">₺${product.discountedPrice.toFixed(2)}</div>
+                        </div>
+                        <button class="add-btn-circle" data-id="${product.id}"><i data-lucide="plus"></i></button>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function setupModals() {
+            const modal = document.getElementById('bonuskaart-modal');
+            const openHeader = document.getElementById('open-scan-header');
+            const openFooter = document.getElementById('open-scan-footer');
+            const closeBtn = document.getElementById('close-modal');
+            const simulateBtn = document.getElementById('simulate-scan');
+
+            if (openHeader) openHeader.onclick = () => modal.style.display = 'flex';
+            if (openFooter) openFooter.onclick = () => modal.style.display = 'flex';
+            if (closeBtn) closeBtn.onclick = () => modal.style.display = 'none';
+
+            if (simulateBtn) {
+                simulateBtn.onclick = () => {
+                    alert('Geçen haftaki alışverişiniz analiz edildi, size özel yeni indirimler tanımlandı!');
+                    modal.style.display = 'none';
+                    sustainabilityScore += 0.5;
+                    document.getElementById('sustainability-value').innerText = `${sustainabilityScore.toFixed(1)} kg`;
+                };
+            }
+        }
+
+        function setupBranchPicker() {
+            const trigger = document.getElementById('branch-trigger');
+            if (trigger) {
+                trigger.onclick = () => {
+                    const nextIdx = (BRANCHES.findIndex(b => b.id === currentBranch.id) + 1) % BRANCHES.length;
+                    currentBranch = BRANCHES[nextIdx];
+                    document.getElementById('current-branch-name').innerText = currentBranch.name;
+                    renderFlashDeals();
+                };
+            }
+        }
+
+        function setupCartLogic() {
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('.add-btn-circle');
+                if (btn) {
+                    const id = btn.getAttribute('data-id');
+                    const product = PRODUCTS.find(p => p.id === id);
+                    cart.push({ ...product, cartId: Date.now() });
+                    updateCartBadge();
+                    btn.innerHTML = '<i data-lucide="check"></i>';
+                    btn.style.background = '#4CAF50';
+                    setTimeout(() => {
+                        btn.innerHTML = '<i data-lucide="plus"></i>';
+                        btn.style.background = btn.closest('.product-card').querySelector('.bonus-tag').style.background === 'var(--danger)' ? 'var(--danger)' : 'var(--ah-blue)';
+                        lucide.createIcons();
+                    }, 1000);
+                    lucide.createIcons();
+                }
+            });
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            if (badge) {
+                badge.innerText = cart.length;
+                badge.style.display = cart.length > 0 ? 'block' : 'none';
+            }
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const emptyState = document.getElementById('cart-empty-state');
+            const summaryBox = document.getElementById('cart-summary-box');
+
+            if (cart.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'block';
+                summaryBox.style.display = 'none';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            summaryBox.style.display = 'block';
+
+            let total = 0;
+            let originalTotal = 0;
+
+            container.innerHTML = cart.map((item, index) => {
+                const currentPrice = item.discountedPrice || item.price;
+                total += currentPrice;
+                originalTotal += item.price;
+                return `
+                    <div class="summary-row" style="background: white; padding: 16px; border-radius: 12px; margin-bottom: 12px; border: 1px solid #eee; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <img src="${item.image}" style="width: 60px; height: 60px; border-radius: 12px; object-fit: cover;">
+                            <div>
+                                <div style="font-weight: 800; font-size: 0.95rem;">${item.name}</div>
+                                <div style="display: flex; gap: 8px; align-items: baseline;">
+                                    <span style="font-weight: 900; color: var(--ah-orange);">₺${currentPrice.toFixed(2)}</span>
+                                    <span style="font-size: 0.75rem; color: #999; text-decoration: line-through;">₺${item.price.toFixed(2)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="remove-item" data-index="${index}" style="border: none; background: #fff5f5; color: var(--danger); padding: 10px; border-radius: 10px; cursor: pointer;">
+                            <i data-lucide="trash-2" style="width: 20px;"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('subtotal').innerText = `₺${originalTotal.toFixed(2)}`;
+            const savings = originalTotal - total;
+            document.getElementById('savings').innerText = `-₺${savings.toFixed(2)}`;
+            document.getElementById('total-price').innerText = `₺${total.toFixed(2)}`;
+            lucide.createIcons();
+
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.onclick = () => {
+                    const idx = btn.getAttribute('data-index');
+                    cart.splice(idx, 1);
+                    renderCart();
+                    updateCartBadge();
+                };
+            });
+        }
+    </script>
 </body>
 </html>

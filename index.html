@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshMarkt | Akıllı Market Deneyimi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <header>
+        <div class="location-picker" id="branch-trigger">
+            <i data-lucide="map-pin"></i>
+            <span id="current-branch-name">Kadıköy Merkez</span>
+            <i data-lucide="chevron-down"></i>
+        </div>
+        <div class="search-bar">
+            <i data-lucide="search"></i>
+            <span>Ürün, kategori veya marka ara...</span>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Personalized Section -->
+        <section id="personalized-deals">
+            <h2>
+                Gelecek Haftanın Fırsatları
+                <a href="#" class="view-all">Tümü</a>
+            </h2>
+            <div class="h-scroll" id="personalized-container">
+                <!-- JS will inject cards here -->
+            </div>
+        </section>
+
+        <!-- Flash Deals Section -->
+        <section id="flash-deals">
+            <h2>
+                Son Şans Ürünleri (SKT İndirimi)
+                <span class="badge-flash" style="font-size: 0.6rem; padding: 2px 6px; border-radius: 4px;">Şubeye Özel</span>
+            </h2>
+            <div class="h-scroll" id="flash-container">
+                <!-- JS will inject cards here -->
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section id="categories">
+            <h2>Kategoriler</h2>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                <div class="nav-item">
+                    <div style="background: #e0f7f9; padding: 15px; border-radius: 12px;"><i data-lucide="apple"></i></div>
+                    <span>Manav</span>
+                </div>
+                <div class="nav-item">
+                    <div style="background: #fff3e0; padding: 15px; border-radius: 12px;"><i data-lucide="coffee"></i></div>
+                    <span>İçecek</span>
+                </div>
+                <div class="nav-item">
+                    <div style="background: #f3e5f5; padding: 15px; border-radius: 12px;"><i data-lucide="beef"></i></div>
+                    <span>Kasap</span>
+                </div>
+                <div class="nav-item">
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 12px;"><i data-lucide="cookie"></i></div>
+                    <span>Atıştırmalık</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- KPI Info Card -->
+        <section class="glass" style="padding: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; margin-top: 20px;">
+            <h3 style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="leaf"></i> Birlikte Başarıyoruz
+            </h3>
+            <p style="font-size: 0.85rem; opacity: 0.9;">
+                Bu hafta son şans ürünlerini tercih ederek <b>4.2 kg</b> gıda israfını önlediniz ve bütçenize <b>₺240</b> katkı sağladınız.
+            </p>
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active">
+            <i data-lucide="home"></i>
+            <span>Ana Sayfa</span>
+        </div>
+        <div class="nav-item">
+            <i data-lucide="layers"></i>
+            <span>Kategoriler</span>
+        </div>
+        <div class="nav-item">
+            <i data-lucide="shopping-cart"></i>
+            <span>Sepetim</span>
+        </div>
+        <div class="nav-item">
+            <i data-lucide="user"></i>
+            <span>Profilim</span>
+        </div>
+    </nav>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

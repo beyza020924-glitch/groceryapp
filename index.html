@@ -7,6 +7,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Marketim">
     <title>Marketim | Beyza</title>
+    <!-- LEAFLET CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -26,6 +29,7 @@
                     <div class="header-logo" id="nav-home-logo">
                         <i data-lucide="shopping-basket" style="width: 36px; height: 36px;"></i>
                     </div>
+                    <h1 id="dynamic-page-title" style="margin-left: 10px; font-size: 1.3rem; font-weight: 900; color: var(--text-dark);">Ana Sayfa</h1>
                 </div>
                 <div class="header-right">
                     <div class="icon-btn" id="open-qr-modal">
@@ -111,9 +115,24 @@
             </section>
 
             <section id="last-chance-section" class="page-section">
-                <div class="category-header" style="text-align: center; margin-bottom: 20px;">
-                    <h2 class="section-title" style="margin: 0;">Son Şans Ürünleri</h2>
-                    <p style="font-size: 0.8rem; color: #888; font-weight: 600; margin-top: 5px;">Kadıköy Merkez Şubesi Stokları</p>
+                <!-- LOCATION & MAP UI -->
+                <div class="location-header">
+                    <div class="location-selector">
+                        <div class="location-text">
+                            <span class="location-label">Bulunduğunuz Konum:</span>
+                            <span class="location-value">Caddebostan</span>
+                        </div>
+                        <i data-lucide="chevron-down"></i>
+                    </div>
+                    
+                    <div class="map-container" style="border-radius: 12px; padding: 0; border: none; overflow: hidden; height: 200px; width: 100%; z-index: 1;">
+                        <div id="map" style="height: 100%; width: 100%; border-radius: 12px; z-index: 1;"></div>
+                    </div>
+                </div>
+
+                <div class="category-header" style="text-align: left; margin: 25px 0 15px 0;">
+                    <h2 id="branch-title" class="section-title" style="margin: 0;">Marketim Caddebostan Sahil Şubesi</h2>
+                    <p style="font-size: 0.8rem; color: #888; font-weight: 600; margin-top: 5px;">Seçili konuma en yakın şube stokları</p>
                 </div>
                 <div id="last-chance-list" class="product-grid"></div>
             </section>
@@ -185,9 +204,10 @@
             { id: 'p10', name: 'Doğum Günü Pastası', category: 'Fırın', price: 250.00, discountedPrice: 210.00, image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=300', isDeal: true },
             { id: 'p11', name: 'Film Eşlikçisi Mısır 200g', category: 'Atıştırmalık', price: 25.00, discountedPrice: 18.00, image: 'https://images.unsplash.com/photo-1585647347483-22b66260dfff?q=80&w=300', isDeal: true },
             { id: 'p12', name: 'Taze Paket Mevsim Meyveleri', category: 'Manav', price: 65.00, discountedPrice: 52.00, image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=300', isDeal: false },
-            { id: 'lc1', name: 'Organik Süt 1L', category: 'Süt & Kahvaltı', price: 40.00, discountedPrice: 20.00, image: 'https://images.unsplash.com/photo-1563636619-e9107da5a76a?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 10, discountText: '%50 İndirim' },
-            { id: 'lc2', name: 'Dilimli Kaşar Peyniri', category: 'Süt & Kahvaltı', price: 120.00, discountedPrice: 48.00, image: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 5, stockMax: 15, discountText: '%60 İndirim' },
-            { id: 'lc3', name: 'Karışık Meyve Sepeti', category: 'Manav', price: 80.00, discountedPrice: 24.00, image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 2, stockMax: 8, discountText: '%70 İndirim' }
+            { id: 'lc1', name: 'Organik Süt 1L', category: 'Süt & Kahvaltı', price: 40.00, discountedPrice: 20.00, image: 'https://images.unsplash.com/photo-1563636619-e9107da5a76a?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 10, discountText: '%50 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
+            { id: 'lc2', name: 'Dilimli Kaşar Peyniri', category: 'Süt & Kahvaltı', price: 120.00, discountedPrice: 48.00, image: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 5, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' },
+            { id: 'lc3', name: 'Karışık Meyve Sepeti', category: 'Manav', price: 80.00, discountedPrice: 24.00, image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 2, stockMax: 8, discountText: '%70 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
+            { id: 'lc4', name: 'Tam Buğday Unlu Ekmek', category: 'Fırın', price: 25.00, discountedPrice: 10.00, image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 8, stockMax: 20, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' }
         ];
 
         const CATEGORIES = [
@@ -212,6 +232,50 @@
         let cart = {};
         let activeSection = 'home-section';
         let pageHistory = [{ targetId: 'home-section' }];
+        let activeBranch = 'Marketim Caddebostan Sahil';
+        
+        let map;
+        let markers = [];
+
+        function initMap() {
+            if (map) return;
+            map = L.map('map', {
+                center: [40.9685, 29.0615],
+                zoom: 14,
+                dragging: true,
+                touchZoom: false,
+                scrollWheelZoom: false
+            });
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap'
+            }).addTo(map);
+
+            const branches = [
+                { name: 'Marketim Caddebostan Sahil', coords: [40.9675, 29.0595] },
+                { name: 'Marketim Bağdat Caddesi', coords: [40.9695, 29.0635] }
+            ];
+
+            branches.forEach(branch => {
+                const marker = L.marker(branch.coords).addTo(map);
+                marker.bindPopup(`<b>${branch.name}</b>`);
+                marker.on('click', () => {
+                    filterByBranch(branch.name);
+                    marker.openPopup();
+                });
+                markers.push({ marker: marker, name: branch.name });
+            });
+        }
+
+        function filterByBranch(branchName) {
+            activeBranch = branchName;
+            document.getElementById('branch-title').innerText = branchName + ' Şubesi';
+            document.querySelector('.location-value').innerText = branchName.replace('Marketim ', '');
+            
+            if (activeSection === 'last-chance-section') {
+                renderLastChanceGrid('last-chance-list', PRODUCTS.filter(p => p.isLastChance && p.branch === activeBranch));
+            }
+        }
 
         function init() {
             renderCategories();
@@ -331,7 +395,7 @@
             renderProductGrid('all-products-list', PRODUCTS.filter(p => !p.isLastChance));
             renderProductGrid('bonus-list', PRODUCTS.filter(p => p.isDeal && !p.isLastChance));
             if (document.getElementById('last-chance-list')) {
-                renderLastChanceGrid('last-chance-list', PRODUCTS.filter(p => p.isLastChance));
+                renderLastChanceGrid('last-chance-list', PRODUCTS.filter(p => p.isLastChance && p.branch === activeBranch));
             }
         }
 
@@ -341,25 +405,38 @@
             container.innerHTML = products.map(p => {
                 const qty = cart[p.id] || 0;
                 return `
-                    <div class="product-card last-chance-card">
-                        <div class="lc-tag">${p.expiry}</div>
-                        <div class="product-image-container">
-                            <img src="${p.image}" class="product-image">
+                    <div class="product-card last-chance-card" style="flex-direction: column; align-items: stretch; height: auto; padding: 15px;">
+                        
+                        <!-- TOP: Branch Name and Distance -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #ffe0cc;">
+                            <div style="font-weight: 800; font-size: 0.85rem; color: #444;">${p.branch}</div>
+                            <div class="lc-tag distance-tag" style="position: static; box-shadow: none; padding: 4px 8px; font-size: 0.65rem;"><i data-lucide="map-pin" style="width:12px; margin-right:4px;"></i>${p.distance}</div>
                         </div>
-                        <div class="product-info lc-info">
-                            <div class="lc-discount">${p.discountText}</div>
-                            <div class="product-name">${p.name}</div>
-                            <div class="price-row">
-                                <span class="price-main">${p.discountedPrice.toFixed(2)} TL</span>
-                                <span class="price-old">${p.price.toFixed(2)} TL</span>
-                                <span class="price-unit">/ adet</span>
+
+                        <!-- MIDDLE: Image and Details -->
+                        <div style="display: flex; flex-direction: row; align-items: flex-start;">
+                            <div class="product-image-container" style="margin-right: 15px; width: 80px; height: 80px;">
+                                <img src="${p.image}" class="product-image" style="width: 65px; height: 65px;">
                             </div>
-                            <div class="stock-bar-container">
-                                <div class="stock-bar" style="width: ${(p.stock / p.stockMax) * 100}%"></div>
+                            <div class="product-info lc-info" style="padding-right: 0; flex: 1;">
+                                <div class="product-name" style="margin-top: 0; margin-bottom: 8px;">${p.name}</div>
+                                <div class="lc-tag expiry-tag" style="position: static; box-shadow: none; display: inline-flex; padding: 4px 8px; font-size: 0.65rem;"><i data-lucide="clock" style="width:12px; margin-right:4px;"></i>${p.expiry}</div>
+                                
+                                <div class="stock-bar-container" style="margin-top: 10px;">
+                                    <div class="stock-bar" style="width: ${(p.stock / p.stockMax) * 100}%;"></div>
+                                </div>
+                                <div class="stock-text" style="margin-top: 5px;">Son ${p.stock} Ürün</div>
                             </div>
-                            <div class="stock-text">Son ${p.stock} Ürün</div>
                         </div>
-                        <div class="ah-btn-container ${qty > 0 ? 'expanded' : ''}" style="z-index: 20;">
+
+                        <!-- BOTTOM: Prices -->
+                        <div class="lc-price-box" style="display: flex; align-items: baseline; gap: 15px; margin-top: 15px; padding-right: 50px;">
+                            <div class="lc-normal-price" style="margin: 0; font-size: 0.75rem;">Eski Fiyat: <span>${p.price.toFixed(2)} TL</span></div>
+                            <div class="lc-special-price" style="margin: 0; font-size: 1.4rem;">${p.discountedPrice.toFixed(2)} TL</div>
+                        </div>
+
+                        <!-- CART BTN -->
+                        <div class="ah-btn-container ${qty > 0 ? 'expanded' : ''}" style="z-index: 20; bottom: 15px;">
                             ${qty > 0 ? `
                                 <button class="ah-btn" onclick="updateQty('${p.id}', -1); event.stopPropagation();">
                                     <i data-lucide="${qty === 1 ? 'trash-2' : 'minus'}"></i>
@@ -448,7 +525,7 @@
                 }
             } else if (activeSection === 'last-chance-section') {
                 if (document.getElementById('last-chance-list')) {
-                    renderLastChanceGrid('last-chance-list', PRODUCTS.filter(p => p.isLastChance));
+                    renderLastChanceGrid('last-chance-list', PRODUCTS.filter(p => p.isLastChance && p.branch === activeBranch));
                 }
             } else {
                 renderProductGrid('all-products-list', PRODUCTS.filter(p => !p.isLastChance));
@@ -545,6 +622,28 @@
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             const targetSection = document.getElementById(targetId);
             if (targetSection) targetSection.classList.add('active');
+            
+            // Dynamic Title Logic
+            const dynamicTitle = document.getElementById('dynamic-page-title');
+            if (dynamicTitle) {
+                if (targetId === 'home-section') dynamicTitle.innerText = 'Ana Sayfa';
+                else if (targetId === 'products-section') {
+                    dynamicTitle.innerText = filter ? filter : (query ? `"${query}" Sonuçları` : 'Kategoriler');
+                }
+                else if (targetId === 'last-chance-section') dynamicTitle.innerText = 'Son Şans Fırsatları';
+                else if (targetId === 'bonus-section') dynamicTitle.innerText = 'İndirimler';
+                else if (targetId === 'cart-section') dynamicTitle.innerText = 'Sepetim';
+                else dynamicTitle.innerText = 'Marketim';
+            }
+
+            if (targetId === 'last-chance-section') {
+                if (!map) {
+                    initMap();
+                }
+                setTimeout(() => {
+                    if (map) map.invalidateSize();
+                }, 100);
+            }
             
             document.querySelectorAll('.nav-item').forEach(i => i.classList.toggle('active', i.getAttribute('data-target') === targetId));
             

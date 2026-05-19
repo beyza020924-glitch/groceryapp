@@ -29,7 +29,7 @@
                     <div class="header-logo" id="nav-home-logo">
                         <i data-lucide="shopping-basket" style="width: 36px; height: 36px;"></i>
                     </div>
-                    <h1 id="dynamic-page-title" style="margin: 0; font-size: 1.1rem; font-weight: 500; color: var(--text-dark);">Ana Sayfa</h1>
+                    <h1 id="dynamic-page-title" style="margin: 0; font-size: 0.95rem; font-weight: 500; color: var(--text-dark);">Ana Sayfa</h1>
                 </div>
                 <div class="header-right">
                     <div class="icon-btn" id="open-qr-modal">
@@ -47,7 +47,26 @@
         </header>
 
         <div class="content-area">
-            <section id="home-section" class="page-section active">
+            <!-- AUTH SECTION -->
+            <section id="auth-section" class="page-section active">
+                <div class="auth-container" style="padding: 40px 20px; text-align: center;">
+                    <i data-lucide="shopping-basket" style="width: 64px; height: 64px; color: var(--ah-blue); margin-bottom: 20px;"></i>
+                    <h2 style="font-size: 1.5rem; font-weight: 500; color: var(--text-dark); margin-bottom: 10px;">Marketim'e Hoş Geldin!</h2>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 30px;">Hızlı teslimat ve sana özel indirimler için giriş yap veya kayıt ol.</p>
+                    
+                    <form id="auth-form" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
+                        <input type="text" id="auth-name" class="auth-input" placeholder="İsim Soyisim" required>
+                        <input type="date" id="auth-dob" class="auth-input" required title="Doğum Tarihi">
+                        <input type="tel" id="auth-phone" class="auth-input" placeholder="Telefon Numarası" required>
+                        <input type="email" id="auth-email" class="auth-input" placeholder="E-posta Adresi" required>
+                        <textarea id="auth-address" class="auth-input" rows="3" placeholder="Açık Adres (Örn: Caddebostan Mah...)" required></textarea>
+                        
+                        <button type="submit" class="primary-btn" style="margin-top: 10px;">Giriş Yap / Kaydet</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="home-section" class="page-section">
                 <div class="hero-banner theme-home">
                     <h1>Hoş geldin Beyza!</h1>
                     <p>Fırsat dolu bir alışverişe başla ></p>
@@ -142,14 +161,23 @@
                 <h2 class="section-title">Profilim</h2>
                 <div class="profile-card">
                     <div class="profile-header">
-                        <div class="avatar">B</div>
-                        <div><h3 id="profile-name">Beyza Şahin</h3><p>beyza.sahin@example.com</p></div>
+                        <div class="avatar" id="profile-avatar">B</div>
+                        <div><h3 id="profile-name">Beyza Şahin</h3><p id="profile-email">beyza.sahin@example.com</p></div>
                     </div>
+                    
+                    <div class="profile-details" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.9rem; color: #444;">
+                        <div style="margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px;"><strong style="color: #999; font-size: 0.75rem;">TELEFON</strong> <span id="profile-phone">-</span></div>
+                        <div style="margin-bottom: 12px; display: flex; flex-direction: column; gap: 4px;"><strong style="color: #999; font-size: 0.75rem;">DOĞUM TARİHİ</strong> <span id="profile-dob">-</span></div>
+                        <div style="display: flex; flex-direction: column; gap: 4px;"><strong style="color: #999; font-size: 0.75rem;">ADRES</strong> <span id="profile-address">-</span></div>
+                    </div>
+
                     <div class="impact-panel">
                         <p>DÜNYAYA KATKINIZ</p>
                         <div class="impact-value" id="sustainability-value">4.8 kg</div>
                         <p>Gıda israfını önlediniz</p>
                     </div>
+                    
+                    <button id="profile-log-out-btn" class="primary-btn" style="background: var(--danger); margin-top: 25px;">Çıkış Yap</button>
                 </div>
             </section>
         </div>
@@ -285,7 +313,36 @@
             renderDeals();
             renderAllProducts();
             setupEventListeners();
-            switchPageWithState({ targetId: 'home-section' });
+            
+            const savedName = localStorage.getItem('userName');
+            const savedAddress = localStorage.getItem('userAddress');
+            const savedPhone = localStorage.getItem('userPhone');
+            const savedEmail = localStorage.getItem('userEmail');
+            const savedDob = localStorage.getItem('userDob');
+            
+            if (savedName) {
+                document.getElementById('home-greeting').innerText = 'Hoş geldin ' + savedName + '!';
+                document.getElementById('profile-name').innerText = savedName;
+                document.getElementById('profile-avatar').innerText = savedName.charAt(0).toUpperCase();
+                
+                if (savedEmail) document.getElementById('profile-email').innerText = savedEmail;
+                if (savedPhone) document.getElementById('profile-phone').innerText = savedPhone;
+                if (savedDob) document.getElementById('profile-dob').innerText = savedDob;
+                if (savedAddress) document.getElementById('profile-address').innerText = savedAddress;
+                
+                if (savedAddress && savedAddress.toLowerCase().includes('caddebostan')) {
+                    filterByBranch('Marketim Caddebostan Sahil');
+                } else if (savedAddress && savedAddress.toLowerCase().includes('bağdat')) {
+                    filterByBranch('Marketim Bağdat Caddesi');
+                } else {
+                    filterByBranch('Marketim Caddebostan Sahil'); // Default
+                }
+                
+                switchPageWithState({ targetId: 'home-section' });
+            } else {
+                switchPageWithState({ targetId: 'auth-section' });
+            }
+            
             updateUI();
             lucide.createIcons();
         }
@@ -300,6 +357,45 @@
                     }
                     switchPageWithState(newState);
                 });
+            });
+            
+            document.getElementById('auth-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('auth-name').value;
+                const address = document.getElementById('auth-address').value;
+                const email = document.getElementById('auth-email').value;
+                const phone = document.getElementById('auth-phone').value;
+                const dob = document.getElementById('auth-dob').value;
+                
+                localStorage.setItem('userName', name);
+                localStorage.setItem('userAddress', address);
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('userPhone', phone);
+                localStorage.setItem('userDob', dob);
+                
+                document.getElementById('home-greeting').innerText = 'Hoş geldin ' + name + '!';
+                document.getElementById('profile-name').innerText = name;
+                document.getElementById('profile-avatar').innerText = name.charAt(0).toUpperCase();
+                document.getElementById('profile-email').innerText = email;
+                document.getElementById('profile-phone').innerText = phone;
+                document.getElementById('profile-dob').innerText = dob;
+                document.getElementById('profile-address').innerText = address;
+                
+                if (address.toLowerCase().includes('caddebostan')) {
+                    filterByBranch('Marketim Caddebostan Sahil');
+                } else if (address.toLowerCase().includes('bağdat') || address.toLowerCase().includes('suadiye')) {
+                    filterByBranch('Marketim Bağdat Caddesi');
+                } else {
+                    filterByBranch('Marketim Caddebostan Sahil');
+                }
+                
+                switchPageWithState({ targetId: 'home-section' });
+            });
+            
+            document.getElementById('profile-log-out-btn').addEventListener('click', () => {
+                localStorage.clear();
+                document.getElementById('auth-form').reset();
+                switchPageWithState({ targetId: 'auth-section' });
             });
             document.getElementById('see-all-deals').onclick = () => {
                 const state = { targetId: 'bonus-section' };
@@ -630,6 +726,7 @@
                 else if (targetId === 'last-chance-section') dynamicTitle.innerText = 'Son Şans Fırsatları';
                 else if (targetId === 'bonus-section') dynamicTitle.innerText = 'İndirimler';
                 else if (targetId === 'cart-section') dynamicTitle.innerText = 'Sepetim';
+                else if (targetId === 'auth-section') dynamicTitle.innerText = 'Giriş';
                 else dynamicTitle.innerText = 'Marketim';
             }
 
@@ -645,7 +742,17 @@
             document.querySelectorAll('.nav-item').forEach(i => i.classList.toggle('active', i.getAttribute('data-target') === targetId));
             
             const header = document.getElementById('app-header');
-            header.style.backgroundColor = targetId === 'home-section' ? 'var(--pastel-blue)' : (targetId === 'last-chance-section' ? 'transparent' : 'white');
+            const bottomNav = document.getElementById('bottom-nav');
+            
+            if (targetId === 'auth-section') {
+                header.style.display = 'none';
+                if (bottomNav) bottomNav.style.display = 'none';
+            } else {
+                header.style.display = 'flex';
+                if (bottomNav) bottomNav.style.display = 'flex';
+                header.style.backgroundColor = targetId === 'home-section' ? 'var(--pastel-blue)' : (targetId === 'bonus-section' ? 'var(--pastel-yellow)' : (targetId === 'last-chance-section' ? 'transparent' : 'white'));
+            }
+            
             document.querySelector('.content-area').scrollTop = 0;
             if (targetId === 'cart-section') renderCartPage();
             lucide.createIcons();
@@ -660,7 +767,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             init();
             
-            // Header Scroll Effect for Home Section
+            // Header Scroll Effect for Home and Bonus Sections
             const contentArea = document.querySelector('.content-area');
             const header = document.getElementById('app-header');
             contentArea.addEventListener('scroll', () => {
@@ -669,6 +776,12 @@
                         header.style.backgroundColor = 'white';
                     } else {
                         header.style.backgroundColor = 'var(--pastel-blue)';
+                    }
+                } else if (document.getElementById('bonus-section').classList.contains('active')) {
+                    if (contentArea.scrollTop > 10) {
+                        header.style.backgroundColor = 'white';
+                    } else {
+                        header.style.backgroundColor = 'var(--pastel-yellow)';
                     }
                 }
             });

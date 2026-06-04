@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="referrer" content="no-referrer">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Marketim">
@@ -182,7 +183,7 @@
             </section>
         </div>
 
-        <nav class="bottom-nav">
+        <nav class="bottom-nav" id="bottom-nav">
             <div class="nav-item active" data-target="home-section"><i data-lucide="home"></i><span>Ana Sayfa</span></div>
             <div class="nav-item" data-target="bonus-section"><i data-lucide="zap"></i><span>Bonus</span></div>
             <div class="nav-item" data-target="products-section"><i data-lucide="layers"></i><span>Ürünler</span></div>
@@ -194,7 +195,7 @@
             <div class="modal-content">
                 <div class="modal-close" id="close-qr-modal"><i data-lucide="x"></i></div>
                 <div class="personalized-card">
-                    <div class="card-header"><div class="card-chip"></div><span class="card-brand">Bonus Kaart</span></div>
+                    <div class="card-header"><div class="card-chip"></div><span class="card-brand">Bonus Kart</span></div>
                     <div class="card-body">
                         <h3 class="user-name">Beyza Şahin</h3>
                         <div class="qr-container"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=BEYZA-LOYALTY" alt="QR Code"></div>
@@ -221,32 +222,32 @@
 
     <script>
         const PRODUCTS = [
-            { id: 'p1', name: 'AH Elmalar (File) 1kg', category: 'Manav', price: 45.00, discountedPrice: 35.00, image: 'https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?q=80&w=300', isDeal: true },
-            { id: 'p2', name: 'AH Taze Süt 1L', category: 'Süt & Kahvaltı', price: 32.00, discountedPrice: 28.50, image: 'https://images.unsplash.com/photo-1563636619-e9107da5a76a?q=80&w=300', isDeal: false },
-            { id: 'p3', name: 'Salkım Domates 500g', category: 'Manav', price: 28.00, discountedPrice: 18.00, image: 'https://images.unsplash.com/photo-1518977676601-b53f02bad67b?q=80&w=300', isDeal: true },
-            { id: 'p4', name: 'Dana Kıyma 500g', category: 'Kasap', price: 280.00, discountedPrice: 245.00, image: 'https://images.unsplash.com/photo-1588168333986-5078d3ae3976?q=80&w=300', isDeal: true },
-            { id: 'p5', name: 'Tam Buğday Ekmek 400g', category: 'Fırın', price: 18.00, discountedPrice: 12.00, image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=300', isDeal: true },
-            { id: 'p6', name: 'AH Portakal Suyu 1L', category: 'İçecek', price: 42.00, discountedPrice: 34.00, image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=300', isDeal: false },
-            { id: 'p7', name: 'Mehmet Efendi Türk Kahvesi 100g', category: 'İçecek', price: 45.00, discountedPrice: 38.00, image: 'https://images.unsplash.com/photo-1544787210-282aa0bc119a?q=80&w=300', isDeal: false },
-            { id: 'p8', name: 'Piknik Seti (Tabak/Bardak)', category: 'Temizlik', price: 120.00, discountedPrice: 95.00, image: 'https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?q=80&w=300', isDeal: true },
-            { id: 'p9', name: 'Sporcu Protein Bar', category: 'Atıştırmalık', price: 35.00, discountedPrice: 28.00, image: 'https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=300', isDeal: false },
-            { id: 'p10', name: 'Doğum Günü Pastası', category: 'Fırın', price: 250.00, discountedPrice: 210.00, image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=300', isDeal: true },
-            { id: 'p11', name: 'Film Eşlikçisi Mısır 200g', category: 'Atıştırmalık', price: 25.00, discountedPrice: 18.00, image: 'https://images.unsplash.com/photo-1585647347483-22b66260dfff?q=80&w=300', isDeal: true },
-            { id: 'p12', name: 'Taze Paket Mevsim Meyveleri', category: 'Manav', price: 65.00, discountedPrice: 52.00, image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=300', isDeal: false },
-            { id: 'lc1', name: 'Organik Süt 1L', category: 'Süt & Kahvaltı', price: 40.00, discountedPrice: 20.00, image: 'https://images.unsplash.com/photo-1563636619-e9107da5a76a?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 10, discountText: '%50 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
-            { id: 'lc2', name: 'Dilimli Kaşar Peyniri', category: 'Süt & Kahvaltı', price: 120.00, discountedPrice: 48.00, image: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 5, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' },
-            { id: 'lc3', name: 'Karışık Meyve Sepeti', category: 'Manav', price: 80.00, discountedPrice: 24.00, image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 2, stockMax: 8, discountText: '%70 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
-            { id: 'lc4', name: 'Tam Buğday Unlu Ekmek', category: 'Fırın', price: 25.00, discountedPrice: 10.00, image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=300', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 8, stockMax: 20, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' }
+            { id: 'p1', name: 'AH Elmalar (File) 1kg', category: 'Manav', price: 45.00, discountedPrice: 35.00, image: './images/apple.png', isDeal: true },
+            { id: 'p2', name: 'AH Taze Süt 1L', category: 'Süt & Kahvaltı', price: 32.00, discountedPrice: 28.50, image: './images/milk.png', isDeal: false },
+            { id: 'p3', name: 'Salkım Domates 500g', category: 'Manav', price: 28.00, discountedPrice: 18.00, image: './images/tomato.png', isDeal: true },
+            { id: 'p4', name: 'Dana Kıyma 500g', category: 'Kasap', price: 280.00, discountedPrice: 245.00, image: 'https://img.spoonacular.com/ingredients_250x250/beef-cubes-raw.png', isDeal: true },
+            { id: 'p5', name: 'Tam Buğday Ekmek 400g', category: 'Fırın', price: 18.00, discountedPrice: 12.00, image: './images/bread.png', isDeal: true },
+            { id: 'p6', name: 'AH Portakal Suyu 1L', category: 'İçecek', price: 42.00, discountedPrice: 34.00, image: './images/juice.png', isDeal: false },
+            { id: 'p7', name: 'Mehmet Efendi Türk Kahvesi 100g', category: 'İçecek', price: 45.00, discountedPrice: 38.00, image: 'https://img.spoonacular.com/ingredients_250x250/coffee-beans.jpg', isDeal: false },
+            { id: 'p8', name: 'Piknik Seti (Tabak/Bardak)', category: 'Temizlik', price: 120.00, discountedPrice: 95.00, image: './images/cleaning_supplies.png', isDeal: true },
+            { id: 'p9', name: 'Sporcu Protein Bar', category: 'Atıştırmalık', price: 35.00, discountedPrice: 28.00, image: 'https://loremflickr.com/300/300/chocolate,bar,white/all?lock=1', isDeal: false },
+            { id: 'p10', name: 'Doğum Günü Pastası', category: 'Fırın', price: 250.00, discountedPrice: 210.00, image: './images/cake.png', isDeal: true },
+            { id: 'p11', name: 'Film Eşlikçisi Mısır 200g', category: 'Atıştırmalık', price: 25.00, discountedPrice: 18.00, image: './images/popcorn.png', isDeal: true },
+            { id: 'p12', name: 'Taze Paket Mevsim Meyveleri', category: 'Manav', price: 65.00, discountedPrice: 52.00, image: 'https://loremflickr.com/300/300/fruit,basket,white/all?lock=1', isDeal: false },
+            { id: 'lc1', name: 'Organik Süt 1L', category: 'Süt & Kahvaltı', price: 40.00, discountedPrice: 20.00, image: './images/milk.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 10, discountText: '%50 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
+            { id: 'lc2', name: 'Dilimli Kaşar Peyniri', category: 'Süt & Kahvaltı', price: 120.00, discountedPrice: 48.00, image: 'https://img.spoonacular.com/ingredients_250x250/cheddar-cheese.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 5, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' },
+            { id: 'lc3', name: 'Sütlü Çikolata Paketi', category: 'Atıştırmalık', price: 80.00, discountedPrice: 24.00, image: './images/chocolate_bar.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 2, stockMax: 8, discountText: '%70 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
+            { id: 'lc4', name: 'Tam Buğday Unlu Ekmek', category: 'Fırın', price: 25.00, discountedPrice: 10.00, image: './images/bread.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 8, stockMax: 20, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' }
         ];
 
         const CATEGORIES = [
-            { id: 'cat1', name: 'Manav', icon: 'apple', color: '#7bc9b6', image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=150' },
-            { id: 'cat2', name: 'Kasap', icon: 'beef', color: '#fde2e4', image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc822?q=80&w=150' },
-            { id: 'cat3', name: 'Süt & Kahvaltı', icon: 'coffee', color: '#9cd7e2', image: 'https://images.unsplash.com/photo-1550583724-1255818c0533?q=80&w=150' },
-            { id: 'cat4', name: 'Fırın', icon: 'croissant', color: '#ffeadb', image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=150' },
-            { id: 'cat5', name: 'İçecek', icon: 'cup-soda', color: '#e2daff', image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?q=80&w=150' },
-            { id: 'cat6', name: 'Atıştırmalık', icon: 'cookie', color: '#f9e48c', image: 'https://images.unsplash.com/photo-1549007994-cb92ca972694?q=80&w=150' },
-            { id: 'cat7', name: 'Temizlik', icon: 'sparkles', color: '#f1f1f1', image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=150' }
+            { id: 'cat1', name: 'Manav', icon: 'apple', color: '#7bc9b6', image: './images/apple.png' },
+            { id: 'cat2', name: 'Kasap', icon: 'beef', color: '#fde2e4', image: 'https://img.spoonacular.com/ingredients_250x250/beef-cubes-raw.png' },
+            { id: 'cat3', name: 'Süt & Kahvaltı', icon: 'coffee', color: '#9cd7e2', image: './images/milk.png' },
+            { id: 'cat4', name: 'Fırın', icon: 'croissant', color: '#ffeadb', image: './images/bread.png' },
+            { id: 'cat5', name: 'İçecek', icon: 'cup-soda', color: '#e2daff', image: './images/juice.png' },
+            { id: 'cat6', name: 'Atıştırmalık', icon: 'cookie', color: '#f9e48c', image: './images/popcorn.png' },
+            { id: 'cat7', name: 'Temizlik', icon: 'sparkles', color: '#f1f1f1', image: './images/cleaning_supplies.png' }
         ];
 
         const HORIZONTAL_FILTERS = [
@@ -314,34 +315,41 @@
             renderAllProducts();
             setupEventListeners();
             
-            const savedName = localStorage.getItem('userName');
+            let savedName = localStorage.getItem('userName');
+            
+            // Eğer giriş yapılmamışsa, "açılınca direk anasayfaya gelsin" kuralı gereği otomatik kayıt oluştur.
+            if (!savedName) {
+                savedName = 'Beyza';
+                localStorage.setItem('userName', 'Beyza');
+                localStorage.setItem('userAddress', 'Caddebostan Mah.');
+                localStorage.setItem('userEmail', 'beyza@example.com');
+                localStorage.setItem('userPhone', '555-555-5555');
+                localStorage.setItem('userDob', '1995-01-01');
+            }
+
             const savedAddress = localStorage.getItem('userAddress');
             const savedPhone = localStorage.getItem('userPhone');
             const savedEmail = localStorage.getItem('userEmail');
             const savedDob = localStorage.getItem('userDob');
             
-            if (savedName) {
-                document.getElementById('home-greeting').innerText = 'Hoş geldin ' + savedName + '!';
-                document.getElementById('profile-name').innerText = savedName;
-                document.getElementById('profile-avatar').innerText = savedName.charAt(0).toUpperCase();
-                
-                if (savedEmail) document.getElementById('profile-email').innerText = savedEmail;
-                if (savedPhone) document.getElementById('profile-phone').innerText = savedPhone;
-                if (savedDob) document.getElementById('profile-dob').innerText = savedDob;
-                if (savedAddress) document.getElementById('profile-address').innerText = savedAddress;
-                
-                if (savedAddress && savedAddress.toLowerCase().includes('caddebostan')) {
-                    filterByBranch('Marketim Caddebostan Sahil');
-                } else if (savedAddress && savedAddress.toLowerCase().includes('bağdat')) {
-                    filterByBranch('Marketim Bağdat Caddesi');
-                } else {
-                    filterByBranch('Marketim Caddebostan Sahil'); // Default
-                }
-                
-                switchPageWithState({ targetId: 'home-section' });
+            document.getElementById('home-greeting').innerText = 'Hoş geldin ' + savedName + '!';
+            document.getElementById('profile-name').innerText = savedName;
+            document.getElementById('profile-avatar').innerText = savedName.charAt(0).toUpperCase();
+            
+            if (savedEmail) document.getElementById('profile-email').innerText = savedEmail;
+            if (savedPhone) document.getElementById('profile-phone').innerText = savedPhone;
+            if (savedDob) document.getElementById('profile-dob').innerText = savedDob;
+            if (savedAddress) document.getElementById('profile-address').innerText = savedAddress;
+            
+            if (savedAddress && savedAddress.toLowerCase().includes('caddebostan')) {
+                filterByBranch('Marketim Caddebostan Sahil');
+            } else if (savedAddress && savedAddress.toLowerCase().includes('bağdat')) {
+                filterByBranch('Marketim Bağdat Caddesi');
             } else {
-                switchPageWithState({ targetId: 'auth-section' });
+                filterByBranch('Marketim Caddebostan Sahil'); // Default
             }
+            
+            switchPageWithState({ targetId: 'home-section' });
             
             updateUI();
             lucide.createIcons();
@@ -514,7 +522,7 @@
                         <!-- MIDDLE: Image and Details -->
                         <div style="display: flex; flex-direction: row; align-items: flex-start;">
                             <div class="product-image-container" style="margin-right: 15px; width: 80px; height: 80px;">
-                                <img src="${p.image}" class="product-image" style="width: 65px; height: 65px;">
+                                <img src="${p.image}" class="product-image">
                             </div>
                             <div class="product-info lc-info" style="padding-right: 0; flex: 1;">
                                 <div class="product-name" style="margin-top: 0; margin-bottom: 8px;">${p.name}</div>

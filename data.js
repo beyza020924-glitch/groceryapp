@@ -74,7 +74,7 @@ const PRODUCTS = [
     { id: 'p48', name: 'Haribo Altın Ayıcık Jelibon 100g', category: 'Atıştırmalık', price: 30.00, discountedPrice: 22.00, image: './images/haribo.png', isDeal: false, tags: ['İyi ki Doğdun'] },
 
     // --- TEMİZLİK ---
-    { id: 'p8_cln', name: 'Piknik Seti (Tabak/Bardak 20\'li)', category: 'Temizlik', price: 110.00, discountedPrice: 85.00, image: './images/cleaning_supplies.png', isDeal: false, tags: ['Piknik'] },
+    { id: 'p8_cln', name: 'Piknik Seti (Tabak/Bardak 20\'li)', category: 'Temizlik', price: 110.00, discountedPrice: 85.00, image: './images/picnic_set.png', isDeal: false, tags: ['Piknik'] },
     { id: 'sp_pk1', name: 'Meşe Mangal Kömürü 2kg & Çıra Paket', category: 'Temizlik', price: 135.00, discountedPrice: 110.00, image: './images/charcoal.png', isDeal: false, tags: ['Piknik'] },
     { id: 'p49', name: 'Fairy Hepsi Bir Arada Deterjan 1L', category: 'Temizlik', price: 115.00, discountedPrice: 89.00, image: './images/fairy.png', isDeal: false },
     { id: 'p50', name: 'Ariel Dağ Esintisi Deterjan 5kg', category: 'Temizlik', price: 340.00, discountedPrice: 279.00, image: './images/ariel.png', isDeal: false },
@@ -94,7 +94,7 @@ const PRODUCTS = [
     { id: 'lc3', name: 'Sütlü Çikolata Paketi (Eti)', category: 'Atıştırmalık', price: 80.00, discountedPrice: 24.00, image: './images/chocolate_bar.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 2, stockMax: 8, discountText: '%70 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
     { id: 'lc4', name: 'Tam Buğday Unlu Ekmek', category: 'Fırın', price: 25.00, discountedPrice: 10.00, image: './images/bread.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 8, stockMax: 20, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' },
     { id: 'lc5', name: 'Danone Çilekli Yoğurt 4\'lü', category: 'Süt & Kahvaltı', price: 65.00, discountedPrice: 26.00, image: './images/yogurt.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 10, discountText: '%60 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
-    { id: 'lc6', name: 'Banvit Piliç Salam 500g', category: 'Kasap', price: 90.00, discountedPrice: 36.00, image: './images/minced_meat.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 6, stockMax: 12, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' }
+    { id: 'lc6', name: 'Banvit Piliç Salam 500g', category: 'Kasap', price: 90.00, discountedPrice: 36.00, image: './images/salam.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 6, stockMax: 12, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' }
 ];
 
 const CATEGORIES = [

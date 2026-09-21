@@ -1,5 +1,11 @@
 // No imports needed when loaded via script tags
 
+const ASSET_VER = '20260921_v7';
+function imgUrl(path) {
+    if (!path) return '';
+    return path + '?v=' + ASSET_VER;
+}
+
 let cart = {}; // { productId: quantity }
 let activeSection = 'home-section';
 
@@ -64,7 +70,7 @@ function renderCategories() {
     const container = document.getElementById('category-list');
     container.innerHTML = CATEGORIES.map(cat => `
         <div class="cat-card" style="background-color: ${cat.color};" onclick="filterByCategory('${cat.name}')">
-            <img src="${cat.image}" class="cat-img">
+            <img src="${imgUrl(cat.image)}" class="cat-img">
             <span class="cat-name">${cat.name}</span>
             <i data-lucide="chevron-right"></i>
         </div>
@@ -95,7 +101,7 @@ function renderProductGrid(containerId, products) {
         
         return `
             <div class="product-card">
-                <img src="${p.image}" alt="${p.name}" class="product-image">
+                <img src="${imgUrl(p.image)}" alt="${p.name}" class="product-image">
                 <div class="product-info">
                     ${isVertical && p.isDeal ? `<div class="discount-tag">online Bonus</div>` : ''}
                     <div class="product-name">${p.name}</div>
@@ -184,7 +190,7 @@ function renderCartPage() {
         return `
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #fff; border-radius: 20px; margin-bottom: 12px; border: 1px solid #f0f0f0;">
                 <div style="display:flex; align-items:center; gap:12px">
-                    <img src="${p.image}" style="width:50px;height:50px;object-fit:contain">
+                    <img src="${imgUrl(p.image)}" style="width:50px;height:50px;object-fit:contain">
                     <div>
                         <div style="font-weight: 800; font-size: 0.9rem;">${p.name} ${p.isDeal ? '(Bonus)' : ''}</div>
                         <div style="color: #999; font-size: 0.75rem;">${qty} x ${unitPrice.toFixed(2)} TL</div>

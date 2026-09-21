@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="referrer" content="no-referrer">
+    <meta name="referrer" content="origin-when-cross-origin">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Marketim">
@@ -69,7 +69,7 @@
 
             <section id="home-section" class="page-section">
                 <div class="hero-banner theme-home">
-                    <h1>Hoş geldin Beyza!</h1>
+                    <h1 id="home-greeting">Hoş geldin Beyza!</h1>
                     <p>Fırsat dolu bir alışverişe başla ></p>
                 </div>
                 <div class="scroll-section">
@@ -138,21 +138,28 @@
             <section id="last-chance-section" class="page-section">
                 <!-- LOCATION & MAP UI -->
                 <div class="location-header">
-                    <div class="location-selector">
+                    <div class="location-selector" id="open-district-modal-btn">
                         <div class="location-text">
-                            <span class="location-label">Bulunduğunuz Konum:</span>
-                            <span class="location-value">Caddebostan</span>
+                            <span class="location-label">Bulunduğunuz İlçe & Şube:</span>
+                            <span class="location-value">Kadıköy (Caddebostan)</span>
                         </div>
                         <i data-lucide="chevron-down"></i>
                     </div>
                     
-                    <div class="map-container" style="border-radius: 12px; padding: 0; border: none; overflow: hidden; height: 200px; width: 100%; z-index: 1;">
-                        <div id="map" style="height: 100%; width: 100%; border-radius: 12px; z-index: 1;"></div>
+                    <!-- Quick District Chips -->
+                    <div class="district-chips-wrapper" id="district-chips-container"></div>
+
+                    <div class="map-container">
+                        <div id="map" style="height: 100%; width: 100%; border-radius: 18px; z-index: 1;"></div>
+                        <button id="fit-map-btn" class="map-floating-btn" type="button" title="Tüm İstanbul Şubelerini Göster">
+                            <i data-lucide="compass"></i>
+                            <span>Tüm Şubeler</span>
+                        </button>
                     </div>
                 </div>
 
                 <div class="category-header" style="text-align: left; margin: 25px 0 15px 0;">
-                    <h2 id="branch-title" class="section-title" style="margin: 0;">Marketim Caddebostan Sahil Şubesi</h2>
+                    <h2 id="branch-title" class="section-title" style="margin: 0;">Marketim Kadıköy (Caddebostan) Şubesi</h2>
                     <p style="font-size: 0.8rem; color: #888; font-weight: 600; margin-top: 5px;">Seçili konuma en yakın şube stokları</p>
                 </div>
                 <div id="last-chance-list" class="product-grid"></div>
@@ -215,6 +222,31 @@
                 <h3>Alışverişiniz tamamlandı!</h3>
                 <p id="success-message">Bu hafta son şans ürünlerini tercih ederek bütçenize katkı sağladınız.</p>
                 <button class="primary-btn" id="close-success-btn">Harika!</button>
+            </div>
+        </div>
+
+        <!-- DISTRICT SELECTION MODAL -->
+        <div id="district-modal" class="modal">
+            <div class="modal-content district-modal-content">
+                <div class="district-modal-header">
+                    <h3>İlçe ve Şube Seçimi</h3>
+                    <div class="modal-close" id="close-district-btn" style="position: static; font-size: 1.2rem; cursor: pointer;">
+                        <i data-lucide="x"></i>
+                    </div>
+                </div>
+                <p class="district-modal-subtitle">Son şans ürünlerini incelemek istediğiniz İstanbul ilçesini seçin:</p>
+                <div class="district-search-bar">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="district-search-input" placeholder="İlçe ara... (Kadıköy, Beşiktaş, Pendik...)">
+                </div>
+                <div class="district-side-filter">
+                    <button type="button" class="side-tab active" data-side="all">Tümü (13)</button>
+                    <button type="button" class="side-tab" data-side="Anadolu">Anadolu (7)</button>
+                    <button type="button" class="side-tab" data-side="Avrupa">Avrupa (6)</button>
+                </div>
+                <div class="district-list" id="district-list-container">
+                    <!-- Dynamic District Items -->
+                </div>
             </div>
         </div>
 
@@ -311,13 +343,101 @@
             { id: 'p56', name: 'Duru Geleneksel Saf Sabun 4x150g', category: 'Kişisel Bakım', price: 75.00, discountedPrice: 55.00, image: './images/soap.png', isDeal: false },
             { id: 'p57', name: 'Nivea Duş Jeli 500ml', category: 'Kişisel Bakım', price: 130.00, discountedPrice: 95.00, image: './images/shower_gel.png', isDeal: false },
 
-            // --- SON ŞANS (LAST CHANCE / EXPIRY DISCOUNTS) ---
-            { id: 'lc1', name: 'Organik Süt 1L (Dost)', category: 'Süt & Kahvaltı', price: 40.00, discountedPrice: 20.00, image: './images/milk.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 10, discountText: '%50 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
-            { id: 'lc2', name: 'Dilimli Kaşar Peyniri 500g', category: 'Süt & Kahvaltı', price: 120.00, discountedPrice: 48.00, image: './images/kasar_cheese.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 5, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' },
-            { id: 'lc3', name: 'Sütlü Çikolata Paketi (Eti)', category: 'Atıştırmalık', price: 80.00, discountedPrice: 24.00, image: './images/chocolate_bar.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 2, stockMax: 8, discountText: '%70 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
-            { id: 'lc4', name: 'Tam Buğday Unlu Ekmek', category: 'Fırın', price: 25.00, discountedPrice: 10.00, image: './images/bread.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 8, stockMax: 20, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' },
-            { id: 'lc5', name: 'Danone Çilekli Yoğurt 4\'lü', category: 'Süt & Kahvaltı', price: 65.00, discountedPrice: 26.00, image: './images/yogurt.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 10, discountText: '%60 İndirim', branch: 'Marketim Caddebostan Sahil', distance: '350m' },
-            { id: 'lc6', name: 'Banvit Piliç Salam 500g', category: 'Kasap', price: 90.00, discountedPrice: 36.00, image: './images/minced_meat.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 6, stockMax: 12, discountText: '%60 İndirim', branch: 'Marketim Bağdat Caddesi', distance: '850m' }
+            // --- SON ŞANS (LAST CHANCE / EXPIRY DISCOUNTS FOR 13 ISTANBUL DISTRICTS) ---
+            // Kadıköy
+            { id: 'lc_kad1', name: 'Organik Süt 1L (Dost)', category: 'Süt & Kahvaltı', price: 40.00, discountedPrice: 20.00, image: './images/milk.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 10, discountText: '%50 İndirim', branch: 'Marketim Kadıköy (Caddebostan)', distance: '250m' },
+            { id: 'lc_kad2', name: 'Dilimli Kaşar Peyniri 500g', category: 'Süt & Kahvaltı', price: 120.00, discountedPrice: 48.00, image: './images/kasar_cheese.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 5, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Kadıköy (Caddebostan)', distance: '250m' },
+            { id: 'lc_kad3', name: 'Sütlü Çikolata Paketi (Eti)', category: 'Atıştırmalık', price: 80.00, discountedPrice: 24.00, image: './images/chocolate_bar.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 2, stockMax: 8, discountText: '%70 İndirim', branch: 'Marketim Kadıköy (Caddebostan)', distance: '250m' },
+            { id: 'lc_kad4', name: 'Amasya Elması 1kg', category: 'Manav', price: 45.00, discountedPrice: 18.00, image: './images/apple.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 7, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Kadıköy (Caddebostan)', distance: '250m' },
+
+            // Pendik
+            { id: 'lc_pen1', name: 'Tam Yağlı Süt 1L (Sütaş)', category: 'Süt & Kahvaltı', price: 36.00, discountedPrice: 15.00, image: './images/milk.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 12, discountText: '%58 İndirim', branch: 'Marketim Pendik Marina', distance: '180m' },
+            { id: 'lc_pen2', name: 'Tekirdağ Kasap Köfte 400g', category: 'Kasap', price: 185.00, discountedPrice: 89.00, image: './images/meatballs.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 10, discountText: '%52 İndirim', branch: 'Marketim Pendik Marina', distance: '180m' },
+            { id: 'lc_pen3', name: 'Tam Buğday Ekmeği 400g', category: 'Fırın', price: 22.00, discountedPrice: 8.00, image: './images/bread.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 9, stockMax: 20, discountText: '%64 İndirim', branch: 'Marketim Pendik Marina', distance: '180m' },
+            { id: 'lc_pen4', name: 'Taze Çilek 500g', category: 'Manav', price: 75.00, discountedPrice: 35.00, image: './images/strawberry.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 5, stockMax: 15, discountText: '%53 İndirim', branch: 'Marketim Pendik Marina', distance: '180m' },
+
+            // Tuzla
+            { id: 'lc_tuz1', name: 'Dana Kuşbaşı 500g', category: 'Kasap', price: 290.00, discountedPrice: 145.00, image: './images/beef_cubes.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 4, stockMax: 10, discountText: '%50 İndirim', branch: 'Marketim Tuzla Sahil', distance: '300m' },
+            { id: 'lc_tuz2', name: 'Pınar Süzme Peynir 500g', category: 'Süt & Kahvaltı', price: 95.00, discountedPrice: 39.00, image: './images/white_cheese.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 6, stockMax: 14, discountText: '%59 İndirim', branch: 'Marketim Tuzla Sahil', distance: '300m' },
+            { id: 'lc_tuz3', name: 'Fransız Kruvasan 2\'li', category: 'Fırın', price: 48.00, discountedPrice: 19.00, image: './images/croissant.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 5, stockMax: 12, discountText: '%60 İndirim', branch: 'Marketim Tuzla Sahil', distance: '300m' },
+            { id: 'lc_tuz4', name: 'Kaymaklı Doğal Yoğurt 1500g', category: 'Süt & Kahvaltı', price: 88.00, discountedPrice: 36.00, image: './images/yogurt.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 8, stockMax: 20, discountText: '%59 İndirim', branch: 'Marketim Tuzla Sahil', distance: '300m' },
+
+            // Kartal
+            { id: 'lc_kar1', name: 'Kaymaklı Doğal Yoğurt 1500g', category: 'Süt & Kahvaltı', price: 88.00, discountedPrice: 35.00, image: './images/yogurt.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Kartal Kordonboyu', distance: '220m' },
+            { id: 'lc_kar2', name: 'Banvit Piliç Salam 500g', category: 'Kasap', price: 90.00, discountedPrice: 36.00, image: './images/minced_meat.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 6, stockMax: 12, discountText: '%60 İndirim', branch: 'Marketim Kartal Kordonboyu', distance: '220m' },
+            { id: 'lc_kar3', name: 'Susamlı Çıtır Simit 2\'li', category: 'Fırın', price: 25.00, discountedPrice: 10.00, image: './images/simit.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 11, stockMax: 25, discountText: '%60 İndirim', branch: 'Marketim Kartal Kordonboyu', distance: '220m' },
+            { id: 'lc_kar4', name: 'Salkım Domates 1kg', category: 'Manav', price: 38.00, discountedPrice: 14.00, image: './images/tomato.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 8, stockMax: 16, discountText: '%63 İndirim', branch: 'Marketim Kartal Kordonboyu', distance: '220m' },
+
+            // Ataşehir
+            { id: 'lc_ata1', name: 'Fropie %100 Fıstık Ezmesi 350g', category: 'Süt & Kahvaltı', price: 115.00, discountedPrice: 46.00, image: './images/peanut_butter.png', isDeal: false, isLastChance: true, expiry: 'SKT: 3 Gün Sonra', stock: 5, stockMax: 10, discountText: '%60 İndirim', branch: 'Marketim Ataşehir Bulvar', distance: '400m' },
+            { id: 'lc_ata2', name: 'İçim Fit Proteinli Süt 500ml', category: 'Süt & Kahvaltı', price: 45.00, discountedPrice: 18.00, image: './images/protein_milk.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 12, discountText: '%60 İndirim', branch: 'Marketim Ataşehir Bulvar', distance: '400m' },
+            { id: 'lc_ata3', name: 'Dana Kıyma %20 Yağlı 500g', category: 'Kasap', price: 260.00, discountedPrice: 125.00, image: './images/minced_meat.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 10, discountText: '%52 İndirim', branch: 'Marketim Ataşehir Bulvar', distance: '400m' },
+            { id: 'lc_ata4', name: 'Taze Kaşar Peyniri 500g', category: 'Süt & Kahvaltı', price: 165.00, discountedPrice: 69.00, image: './images/kasar_cheese.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 7, stockMax: 15, discountText: '%58 İndirim', branch: 'Marketim Ataşehir Bulvar', distance: '400m' },
+
+            // Üsküdar
+            { id: 'lc_usk1', name: 'Taze Çikolatalı Yaş Pasta', category: 'Fırın', price: 280.00, discountedPrice: 99.00, image: './images/cake.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 2, stockMax: 6, discountText: '%65 İndirim', branch: 'Marketim Üsküdar Sahil', distance: '150m' },
+            { id: 'lc_usk2', name: 'Amasya Elması 1kg', category: 'Manav', price: 45.00, discountedPrice: 18.00, image: './images/apple.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 6, stockMax: 14, discountText: '%60 İndirim', branch: 'Marketim Üsküdar Sahil', distance: '150m' },
+            { id: 'lc_usk3', name: 'Organik Süt 1L (Dost)', category: 'Süt & Kahvaltı', price: 40.00, discountedPrice: 20.00, image: './images/milk.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 10, discountText: '%50 İndirim', branch: 'Marketim Üsküdar Sahil', distance: '150m' },
+            { id: 'lc_usk4', name: 'Geleneksel Tereyağı 250g', category: 'Süt & Kahvaltı', price: 125.00, discountedPrice: 52.00, image: './images/butter.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 5, stockMax: 12, discountText: '%58 İndirim', branch: 'Marketim Üsküdar Sahil', distance: '150m' },
+
+            // Beyoğlu
+            { id: 'lc_bey1', name: 'Fransız Kruvasan 2\'li', category: 'Fırın', price: 48.00, discountedPrice: 19.00, image: './images/croissant.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 6, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Beyoğlu Cihangir', distance: '200m' },
+            { id: 'lc_bey2', name: 'Taze Sandviç: Hindi Füme & Kaşar', category: 'Fırın', price: 65.00, discountedPrice: 26.00, image: './images/fresh_sandwich.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 10, discountText: '%60 İndirim', branch: 'Marketim Beyoğlu Cihangir', distance: '200m' },
+            { id: 'lc_bey3', name: 'Cappy %100 Portakal Suyu 1L', category: 'İçecek', price: 48.00, discountedPrice: 19.00, image: './images/juice.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 8, stockMax: 16, discountText: '%60 İndirim', branch: 'Marketim Beyoğlu Cihangir', distance: '200m' },
+            { id: 'lc_bey4', name: 'Dilimli Kaşar Peyniri 500g', category: 'Süt & Kahvaltı', price: 120.00, discountedPrice: 48.00, image: './images/kasar_cheese.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 5, stockMax: 12, discountText: '%60 İndirim', branch: 'Marketim Beyoğlu Cihangir', distance: '200m' },
+
+            // Beykoz
+            { id: 'lc_bko1', name: 'Geleneksel Tereyağı 250g', category: 'Süt & Kahvaltı', price: 125.00, discountedPrice: 52.00, image: './images/butter.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 10, discountText: '%58 İndirim', branch: 'Marketim Beykoz Kavacık', distance: '350m' },
+            { id: 'lc_bko2', name: 'Gezen Tavuk Yumurtası 15\'li', category: 'Süt & Kahvaltı', price: 78.00, discountedPrice: 35.00, image: './images/eggs.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 5, stockMax: 12, discountText: '%55 İndirim', branch: 'Marketim Beykoz Kavacık', distance: '350m' },
+            { id: 'lc_bko3', name: 'Dana Kuşbaşı 500g', category: 'Kasap', price: 290.00, discountedPrice: 139.00, image: './images/beef_cubes.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 8, discountText: '%52 İndirim', branch: 'Marketim Beykoz Kavacık', distance: '350m' },
+            { id: 'lc_bko4', name: 'Amasya Elması 1kg', category: 'Manav', price: 45.00, discountedPrice: 18.00, image: './images/apple.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 7, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Beykoz Kavacık', distance: '350m' },
+
+            // Beşiktaş
+            { id: 'lc_bes1', name: 'Taze Hazır Salata (Sezar)', category: 'Manav', price: 75.00, discountedPrice: 32.00, image: './images/fresh_salad.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 5, stockMax: 12, discountText: '%57 İndirim', branch: 'Marketim Beşiktaş Akaretler', distance: '190m' },
+            { id: 'lc_bes2', name: 'Meyveli Doğum Günü Pastası', category: 'Fırın', price: 320.00, discountedPrice: 110.00, image: './images/fruit_cake.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 2, stockMax: 5, discountText: '%66 İndirim', branch: 'Marketim Beşiktaş Akaretler', distance: '190m' },
+            { id: 'lc_bes3', name: 'Tavuk Bonfile 1kg (Banvit)', category: 'Kasap', price: 210.00, discountedPrice: 89.00, image: './images/chicken_breast.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 4, stockMax: 10, discountText: '%58 İndirim', branch: 'Marketim Beşiktaş Akaretler', distance: '190m' },
+            { id: 'lc_bes4', name: 'Organik Süt 1L (Dost)', category: 'Süt & Kahvaltı', price: 40.00, discountedPrice: 20.00, image: './images/milk.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 6, stockMax: 15, discountText: '%50 İndirim', branch: 'Marketim Beşiktaş Akaretler', distance: '190m' },
+
+            // Fatih
+            { id: 'lc_fat1', name: 'Mehmet Efendi Türk Kahvesi 100g', category: 'İçecek', price: 55.00, discountedPrice: 25.00, image: './images/turkish_coffee.png', isDeal: false, isLastChance: true, expiry: 'SKT: 3 Gün Sonra', stock: 6, stockMax: 15, discountText: '%55 İndirim', branch: 'Marketim Fatih Fevzipaşa', distance: '210m' },
+            { id: 'lc_fat2', name: 'Hacı Bekir Lokum 250g', category: 'Atıştırmalık', price: 95.00, discountedPrice: 39.00, image: './images/lokum.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 4, stockMax: 10, discountText: '%59 İndirim', branch: 'Marketim Fatih Fevzipaşa', distance: '210m' },
+            { id: 'lc_fat3', name: 'Tam Buğday Ekmeği 400g', category: 'Fırın', price: 22.00, discountedPrice: 8.00, image: './images/bread.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 8, stockMax: 20, discountText: '%64 İndirim', branch: 'Marketim Fatih Fevzipaşa', distance: '210m' },
+            { id: 'lc_fat4', name: 'Tekirdağ Kasap Köfte 400g', category: 'Kasap', price: 185.00, discountedPrice: 85.00, image: './images/meatballs.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 3, stockMax: 8, discountText: '%54 İndirim', branch: 'Marketim Fatih Fevzipaşa', distance: '210m' },
+
+            // Sarıyer
+            { id: 'lc_sar1', name: 'Zuber Protein Bar 40g', category: 'Atıştırmalık', price: 42.00, discountedPrice: 16.00, image: './images/protein_bar.png', isDeal: false, isLastChance: true, expiry: 'SKT: 3 Gün Sonra', stock: 8, stockMax: 20, discountText: '%62 İndirim', branch: 'Marketim Sarıyer Maslak', distance: '280m' },
+            { id: 'lc_sar2', name: 'Çengelköy Salatalık 1kg', category: 'Manav', price: 40.00, discountedPrice: 16.00, image: './images/cucumber.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 6, stockMax: 15, discountText: '%60 İndirim', branch: 'Marketim Sarıyer Maslak', distance: '280m' },
+            { id: 'lc_sar3', name: 'Taze Sandviç: Hindi Füme & Kaşar', category: 'Fırın', price: 65.00, discountedPrice: 26.00, image: './images/fresh_sandwich.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 10, discountText: '%60 İndirim', branch: 'Marketim Sarıyer Maslak', distance: '280m' },
+            { id: 'lc_sar4', name: 'Pınar Süzme Peynir 500g', category: 'Süt & Kahvaltı', price: 95.00, discountedPrice: 39.00, image: './images/white_cheese.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 5, stockMax: 12, discountText: '%59 İndirim', branch: 'Marketim Sarıyer Maslak', distance: '280m' },
+
+            // Sultangazi
+            { id: 'lc_sul1', name: 'Bütün Poşetli Tavuk kg', category: 'Kasap', price: 98.00, discountedPrice: 45.00, image: './images/whole_chicken.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 5, stockMax: 12, discountText: '%54 İndirim', branch: 'Marketim Sultangazi Merkez', distance: '250m' },
+            { id: 'lc_sul2', name: 'Balküpü Toz Şeker 5kg', category: 'Temel Gıda', price: 235.00, discountedPrice: 119.00, image: './images/sugar_bag.png', isDeal: false, isLastChance: true, expiry: 'SKT: 3 Gün Sonra', stock: 6, stockMax: 15, discountText: '%49 İndirim', branch: 'Marketim Sultangazi Merkez', distance: '250m' },
+            { id: 'lc_sul3', name: 'Taze Kaşar Peyniri 500g', category: 'Süt & Kahvaltı', price: 165.00, discountedPrice: 69.00, image: './images/kasar_cheese.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 4, stockMax: 10, discountText: '%58 İndirim', branch: 'Marketim Sultangazi Merkez', distance: '250m' },
+            { id: 'lc_sul4', name: 'Tam Yağlı Süt 1L (Sütaş)', category: 'Süt & Kahvaltı', price: 36.00, discountedPrice: 15.00, image: './images/milk.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 7, stockMax: 15, discountText: '%58 İndirim', branch: 'Marketim Sultangazi Merkez', distance: '250m' },
+
+            // Zeytinburnu
+            { id: 'lc_zey1', name: 'Tarla Patates 2kg', category: 'Manav', price: 45.00, discountedPrice: 18.00, image: './images/potato.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 9, stockMax: 20, discountText: '%60 İndirim', branch: 'Marketim Zeytinburnu Sahil', distance: '320m' },
+            { id: 'lc_zey2', name: 'Kuru Soğan 2kg', category: 'Manav', price: 35.00, discountedPrice: 14.00, image: './images/onion.png', isDeal: false, isLastChance: true, expiry: 'SKT: 2 Gün Sonra', stock: 8, stockMax: 20, discountText: '%60 İndirim', branch: 'Marketim Zeytinburnu Sahil', distance: '320m' },
+            { id: 'lc_zey3', name: 'Dana Kıyma %20 Yağlı 500g', category: 'Kasap', price: 260.00, discountedPrice: 120.00, image: './images/minced_meat.png', isDeal: false, isLastChance: true, expiry: 'SKT: Bugün', stock: 4, stockMax: 10, discountText: '%54 İndirim', branch: 'Marketim Zeytinburnu Sahil', distance: '320m' },
+            { id: 'lc_zey4', name: 'Dilimli Kaşar Peyniri 500g', category: 'Süt & Kahvaltı', price: 120.00, discountedPrice: 48.00, image: './images/kasar_cheese.png', isDeal: false, isLastChance: true, expiry: 'SKT: Yarın', stock: 6, stockMax: 14, discountText: '%60 İndirim', branch: 'Marketim Zeytinburnu Sahil', distance: '320m' }
+        ];
+
+        // 13 ISTANBUL DISTRICTS WITH EXACT COORDINATES AND BRANCHES
+        const ISTANBUL_DISTRICTS = [
+            { id: 'kadikoy', name: 'Kadıköy', branch: 'Marketim Kadıköy (Caddebostan)', coords: [40.9675, 29.0595], neighborhood: 'Caddebostan Mah. Bağdat Cad.', side: 'Anadolu' },
+            { id: 'pendik', name: 'Pendik', branch: 'Marketim Pendik Marina', coords: [40.8752, 29.2333], neighborhood: 'Batı Mah. Erol Kaya Cad.', side: 'Anadolu' },
+            { id: 'tuzla', name: 'Tuzla', branch: 'Marketim Tuzla Sahil', coords: [40.8164, 29.3032], neighborhood: 'Postane Mah. Manastır Yolu', side: 'Anadolu' },
+            { id: 'kartal', name: 'Kartal', branch: 'Marketim Kartal Kordonboyu', coords: [40.8906, 29.1868], neighborhood: 'Kordonboyu Mah. Sahil Blv.', side: 'Anadolu' },
+            { id: 'atasehir', name: 'Ataşehir', branch: 'Marketim Ataşehir Bulvar', coords: [40.9931, 29.1173], neighborhood: 'Barbaros Mah. Mor Sümbül Sok.', side: 'Anadolu' },
+            { id: 'uskudar', name: 'Üsküdar', branch: 'Marketim Üsküdar Sahil', coords: [41.0264, 29.0152], neighborhood: 'Salacak Mah. Sahil Yolu', side: 'Anadolu' },
+            { id: 'beyoglu', name: 'Beyoğlu', branch: 'Marketim Beyoğlu Cihangir', coords: [41.0369, 28.9774], neighborhood: 'Kılıçali Paşa Mah. Sıraselviler Cad.', side: 'Avrupa' },
+            { id: 'beykoz', name: 'Beykoz', branch: 'Marketim Beykoz Kavacık', coords: [41.1032, 29.0984], neighborhood: 'Kavacık Mah. Otağtepe Cad.', side: 'Anadolu' },
+            { id: 'besiktas', name: 'Beşiktaş', branch: 'Marketim Beşiktaş Akaretler', coords: [41.0428, 29.0077], neighborhood: 'Sinanpaşa Mah. Şair Nedim Cad.', side: 'Avrupa' },
+            { id: 'fatih', name: 'Fatih', branch: 'Marketim Fatih Fevzipaşa', coords: [41.0186, 28.9497], neighborhood: 'Ali Kuşçu Mah. Fevzipaşa Cad.', side: 'Avrupa' },
+            { id: 'sariyer', name: 'Sarıyer', branch: 'Marketim Sarıyer Maslak', coords: [41.1105, 29.0225], neighborhood: 'Maslak Mah. Büyükdere Cad.', side: 'Avrupa' },
+            { id: 'sultangazi', name: 'Sultangazi', branch: 'Marketim Sultangazi Merkez', coords: [41.1077, 28.8687], neighborhood: 'Cebeci Mah. Atatürk Bulvarı', side: 'Avrupa' },
+            { id: 'zeytinburnu', name: 'Zeytinburnu', branch: 'Marketim Zeytinburnu Sahil', coords: [40.9892, 28.9038], neighborhood: 'Kazlıçeşme Mah. Kennedy Cad.', side: 'Avrupa' }
         ];
 
         const CATEGORIES = [
@@ -344,49 +464,205 @@
         let cart = {};
         let activeSection = 'home-section';
         let pageHistory = [{ targetId: 'home-section' }];
-        let activeBranch = 'Marketim Caddebostan Sahil';
+        let activeDistrictId = 'kadikoy';
+        let activeBranch = 'Marketim Kadıköy (Caddebostan)';
+        let currentSideFilter = 'all';
         
-        let map;
+        let map = null;
         let markers = [];
 
         function initMap() {
-            if (map) return;
+            const mapContainer = document.getElementById('map');
+            if (!mapContainer) return;
+            if (map) {
+                setTimeout(() => map.invalidateSize(), 100);
+                return;
+            }
+
+            const currentDistrict = ISTANBUL_DISTRICTS.find(d => d.id === activeDistrictId) || ISTANBUL_DISTRICTS[0];
+
             map = L.map('map', {
-                center: [40.9685, 29.0615],
-                zoom: 14,
+                center: currentDistrict.coords,
+                zoom: 13,
                 dragging: true,
-                touchZoom: false,
-                scrollWheelZoom: false
+                touchZoom: true,
+                scrollWheelZoom: false,
+                attributionControl: false
             });
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap'
+            // CartoDB Voyager Tiles - reliable, fast, no OSM blocking
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; CARTO &copy; OpenStreetMap',
+                subdomains: 'abcd',
+                maxZoom: 19
             }).addTo(map);
 
-            const branches = [
-                { name: 'Marketim Caddebostan Sahil', coords: [40.9675, 29.0595] },
-                { name: 'Marketim Bağdat Caddesi', coords: [40.9695, 29.0635] }
-            ];
+            L.control.attribution({ position: 'bottomright', prefix: false })
+                .addAttribution('&copy; CartoDB &copy; OSM')
+                .addTo(map);
 
-            branches.forEach(branch => {
-                const marker = L.marker(branch.coords).addTo(map);
-                marker.bindPopup(`<b>${branch.name}</b>`);
+            renderMapMarkers();
+
+            setTimeout(() => {
+                if (map) map.invalidateSize();
+            }, 200);
+        }
+
+        function renderMapMarkers() {
+            if (!map) return;
+            markers.forEach(m => map.removeLayer(m.marker));
+            markers = [];
+
+            ISTANBUL_DISTRICTS.forEach(district => {
+                const isSelected = district.id === activeDistrictId;
+                const icon = L.divIcon({
+                    className: 'custom-pin-container',
+                    html: `
+                        <div class="market-pin ${isSelected ? 'active' : ''}" id="pin-${district.id}">
+                            <div class="pin-head">
+                                <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                                    <path d="M3 6h18"></path>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                            </div>
+                            <div class="pin-label">${district.name}</div>
+                        </div>
+                    `,
+                    iconSize: [44, 44],
+                    iconAnchor: [22, 38],
+                    popupAnchor: [0, -36]
+                });
+
+                const marker = L.marker(district.coords, { icon: icon }).addTo(map);
+
+                marker.bindPopup(`
+                    <div class="map-popup-card">
+                        <div class="map-popup-title">${district.branch}</div>
+                        <div class="map-popup-sub">${district.neighborhood}</div>
+                        <button class="map-popup-select-btn" onclick="selectDistrict('${district.id}')">Bu Şubeyi Seç</button>
+                    </div>
+                `);
+
                 marker.on('click', () => {
-                    filterByBranch(branch.name);
+                    selectDistrict(district.id);
                     marker.openPopup();
                 });
-                markers.push({ marker: marker, name: branch.name });
+
+                markers.push({ districtId: district.id, marker: marker });
             });
         }
 
-        function filterByBranch(branchName) {
-            activeBranch = branchName;
-            document.getElementById('branch-title').innerText = branchName + ' Şubesi';
-            document.querySelector('.location-value').innerText = branchName.replace('Marketim ', '');
-            
-            if (activeSection === 'last-chance-section') {
-                renderLastChanceGrid('last-chance-list', PRODUCTS.filter(p => p.isLastChance && p.branch === activeBranch));
+        function selectDistrict(districtId, skipFly = false) {
+            const district = ISTANBUL_DISTRICTS.find(d => d.id === districtId);
+            if (!district) return;
+
+            activeDistrictId = district.id;
+            activeBranch = district.branch;
+            localStorage.setItem('selectedDistrict', districtId);
+
+            // Update UI location label & branch title
+            const locVal = document.querySelector('.location-value');
+            if (locVal) locVal.innerText = `${district.name} (${district.branch.replace('Marketim ', '')})`;
+
+            const branchTitle = document.getElementById('branch-title');
+            if (branchTitle) branchTitle.innerText = `${district.branch} Şubesi`;
+
+            // Update Pin active styles on map
+            document.querySelectorAll('.market-pin').forEach(el => el.classList.remove('active'));
+            const activePin = document.getElementById(`pin-${district.id}`);
+            if (activePin) activePin.classList.add('active');
+
+            // Fly map to selected branch
+            if (map && !skipFly) {
+                map.flyTo(district.coords, 14, { duration: 0.8 });
+                const markerObj = markers.find(m => m.districtId === districtId);
+                if (markerObj) {
+                    setTimeout(() => {
+                        markerObj.marker.openPopup();
+                    }, 850);
+                }
+            } else if (map && skipFly) {
+                map.setView(district.coords, 13);
             }
+
+            // Update Quick Chips
+            document.querySelectorAll('.district-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.getAttribute('data-id') === districtId);
+            });
+
+            // Update Modal list items
+            document.querySelectorAll('.district-card-item').forEach(item => {
+                item.classList.toggle('selected', item.getAttribute('data-id') === districtId);
+            });
+
+            // Update Son Şans products grid
+            const branchProducts = PRODUCTS.filter(p => p.isLastChance && p.branch === activeBranch);
+            renderLastChanceGrid('last-chance-list', branchProducts.length > 0 ? branchProducts : PRODUCTS.filter(p => p.isLastChance).slice(0, 4));
+
+            toggleModal('district-modal', false);
+            lucide.createIcons();
+        }
+
+        function fitAllBranches() {
+            if (!map || markers.length === 0) return;
+            const group = L.featureGroup(markers.map(m => m.marker));
+            map.fitBounds(group.getBounds().pad(0.12));
+        }
+
+        function renderDistrictChips() {
+            const container = document.getElementById('district-chips-container');
+            if (!container) return;
+            container.innerHTML = ISTANBUL_DISTRICTS.map(d => `
+                <button type="button" class="district-chip ${d.id === activeDistrictId ? 'active' : ''}" data-id="${d.id}" onclick="selectDistrict('${d.id}')">
+                    <i data-lucide="map-pin"></i>
+                    <span>${d.name}</span>
+                </button>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function renderDistrictModalList(filterSide = 'all', filterQuery = '') {
+            const container = document.getElementById('district-list-container');
+            if (!container) return;
+            
+            let list = ISTANBUL_DISTRICTS;
+            if (filterSide && filterSide !== 'all') {
+                list = list.filter(d => d.side === filterSide);
+            }
+            if (filterQuery) {
+                const q = filterQuery.toLowerCase().trim();
+                list = list.filter(d => d.name.toLowerCase().includes(q) || d.branch.toLowerCase().includes(q) || d.neighborhood.toLowerCase().includes(q));
+            }
+
+            if (list.length === 0) {
+                container.innerHTML = `<div style="text-align: center; padding: 30px 10px; color: #888; font-size: 0.85rem;">Eşleşen ilçe bulunamadı.</div>`;
+                return;
+            }
+
+            container.innerHTML = list.map(d => {
+                const isSelected = d.id === activeDistrictId;
+                return `
+                    <div class="district-card-item ${isSelected ? 'selected' : ''}" data-id="${d.id}" onclick="selectDistrict('${d.id}')">
+                        <div class="district-card-left">
+                            <div class="district-card-icon">
+                                <i data-lucide="map-pin" style="width: 18px; height: 18px;"></i>
+                            </div>
+                            <div>
+                                <div class="district-card-name">${d.name}</div>
+                                <div class="district-card-branch">${d.branch}</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="district-card-side-tag">${d.side}</span>
+                            <div class="district-radio-check">
+                                ${isSelected ? '<i data-lucide="check" style="width: 12px; height: 12px; stroke-width: 3;"></i>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            lucide.createIcons();
         }
 
         function init() {
@@ -395,11 +671,12 @@
             renderHorizontalFilters();
             renderDeals();
             renderAllProducts();
+            renderDistrictChips();
+            renderDistrictModalList('all');
             setupEventListeners();
             
             let savedName = localStorage.getItem('userName');
             
-            // Eğer giriş yapılmamışsa, "açılınca direk anasayfaya gelsin" kuralı gereği otomatik kayıt oluştur.
             if (!savedName) {
                 savedName = 'Beyza';
                 localStorage.setItem('userName', 'Beyza');
@@ -413,22 +690,34 @@
             const savedPhone = localStorage.getItem('userPhone');
             const savedEmail = localStorage.getItem('userEmail');
             const savedDob = localStorage.getItem('userDob');
+            const savedDistrict = localStorage.getItem('selectedDistrict');
             
-            document.getElementById('home-greeting').innerText = 'Hoş geldin ' + savedName + '!';
-            document.getElementById('profile-name').innerText = savedName;
-            document.getElementById('profile-avatar').innerText = savedName.charAt(0).toUpperCase();
+            const greetingEl = document.getElementById('home-greeting');
+            if (greetingEl) greetingEl.innerText = 'Hoş geldin ' + savedName + '!';
             
-            if (savedEmail) document.getElementById('profile-email').innerText = savedEmail;
-            if (savedPhone) document.getElementById('profile-phone').innerText = savedPhone;
-            if (savedDob) document.getElementById('profile-dob').innerText = savedDob;
-            if (savedAddress) document.getElementById('profile-address').innerText = savedAddress;
+            const pName = document.getElementById('profile-name');
+            if (pName) pName.innerText = savedName;
             
-            if (savedAddress && savedAddress.toLowerCase().includes('caddebostan')) {
-                filterByBranch('Marketim Caddebostan Sahil');
-            } else if (savedAddress && savedAddress.toLowerCase().includes('bağdat')) {
-                filterByBranch('Marketim Bağdat Caddesi');
+            const pAvatar = document.getElementById('profile-avatar');
+            if (pAvatar) pAvatar.innerText = savedName.charAt(0).toUpperCase();
+            
+            if (savedEmail && document.getElementById('profile-email')) document.getElementById('profile-email').innerText = savedEmail;
+            if (savedPhone && document.getElementById('profile-phone')) document.getElementById('profile-phone').innerText = savedPhone;
+            if (savedDob && document.getElementById('profile-dob')) document.getElementById('profile-dob').innerText = savedDob;
+            if (savedAddress && document.getElementById('profile-address')) document.getElementById('profile-address').innerText = savedAddress;
+            
+            if (savedDistrict && ISTANBUL_DISTRICTS.some(d => d.id === savedDistrict)) {
+                selectDistrict(savedDistrict, true);
+            } else if (savedAddress) {
+                const lowerAddr = savedAddress.toLowerCase();
+                const matched = ISTANBUL_DISTRICTS.find(d => lowerAddr.includes(d.name.toLowerCase()) || lowerAddr.includes(d.id));
+                if (matched) {
+                    selectDistrict(matched.id, true);
+                } else {
+                    selectDistrict('kadikoy', true);
+                }
             } else {
-                filterByBranch('Marketim Caddebostan Sahil'); // Default
+                selectDistrict('kadikoy', true);
             }
             
             switchPageWithState({ targetId: 'home-section' });
@@ -463,7 +752,8 @@
                 localStorage.setItem('userPhone', phone);
                 localStorage.setItem('userDob', dob);
                 
-                document.getElementById('home-greeting').innerText = 'Hoş geldin ' + name + '!';
+                const greetingEl = document.getElementById('home-greeting');
+                if (greetingEl) greetingEl.innerText = 'Hoş geldin ' + name + '!';
                 document.getElementById('profile-name').innerText = name;
                 document.getElementById('profile-avatar').innerText = name.charAt(0).toUpperCase();
                 document.getElementById('profile-email').innerText = email;
@@ -471,12 +761,12 @@
                 document.getElementById('profile-dob').innerText = dob;
                 document.getElementById('profile-address').innerText = address;
                 
-                if (address.toLowerCase().includes('caddebostan')) {
-                    filterByBranch('Marketim Caddebostan Sahil');
-                } else if (address.toLowerCase().includes('bağdat') || address.toLowerCase().includes('suadiye')) {
-                    filterByBranch('Marketim Bağdat Caddesi');
+                const lowerAddr = address.toLowerCase();
+                const matched = ISTANBUL_DISTRICTS.find(d => lowerAddr.includes(d.name.toLowerCase()) || lowerAddr.includes(d.id));
+                if (matched) {
+                    selectDistrict(matched.id);
                 } else {
-                    filterByBranch('Marketim Caddebostan Sahil');
+                    selectDistrict('kadikoy');
                 }
                 
                 switchPageWithState({ targetId: 'home-section' });
@@ -510,6 +800,51 @@
             document.getElementById('back-btn').onclick = goBack;
             document.getElementById('open-qr-modal').onclick = () => toggleModal('qr-modal', true);
             document.getElementById('close-qr-modal').onclick = () => toggleModal('qr-modal', false);
+            
+            // District Selection Modal & Map Controls
+            const openDistBtn = document.getElementById('open-district-modal-btn');
+            if (openDistBtn) {
+                openDistBtn.onclick = () => {
+                    const searchInput = document.getElementById('district-search-input');
+                    if (searchInput) searchInput.value = '';
+                    renderDistrictModalList(currentSideFilter, '');
+                    toggleModal('district-modal', true);
+                };
+            }
+
+            const closeDistBtn = document.getElementById('close-district-btn');
+            if (closeDistBtn) {
+                closeDistBtn.onclick = () => toggleModal('district-modal', false);
+            }
+
+            const fitBtn = document.getElementById('fit-map-btn');
+            if (fitBtn) {
+                fitBtn.onclick = fitAllBranches;
+            }
+
+            const searchInput = document.getElementById('district-search-input');
+            if (searchInput) {
+                searchInput.oninput = (e) => {
+                    renderDistrictModalList(currentSideFilter, e.target.value);
+                };
+            }
+
+            document.querySelectorAll('.side-tab').forEach(tab => {
+                tab.onclick = () => {
+                    document.querySelectorAll('.side-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentSideFilter = tab.getAttribute('data-side');
+                    const q = searchInput ? searchInput.value : '';
+                    renderDistrictModalList(currentSideFilter, q);
+                };
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target && e.target.classList && e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+
             document.getElementById('search-input').oninput = (e) => {
                 const query = e.target.value.toLowerCase();
                 const state = { targetId: 'products-section', query: query };
@@ -831,10 +1166,15 @@
             if (targetId === 'last-chance-section') {
                 if (!map) {
                     initMap();
+                } else {
+                    setTimeout(() => {
+                        if (map) {
+                            map.invalidateSize();
+                            const current = ISTANBUL_DISTRICTS.find(d => d.id === activeDistrictId);
+                            if (current) map.setView(current.coords, 14);
+                        }
+                    }, 120);
                 }
-                setTimeout(() => {
-                    if (map) map.invalidateSize();
-                }, 100);
             }
             
             document.querySelectorAll('.nav-item').forEach(i => i.classList.toggle('active', i.getAttribute('data-target') === targetId));

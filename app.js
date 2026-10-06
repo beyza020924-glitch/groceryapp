@@ -1,6 +1,6 @@
 // No imports needed when loaded via script tags
 
-const ASSET_VER = '20260921_v7';
+const ASSET_VER = '20261006_v8';
 function imgUrl(path) {
     if (!path) return '';
     return path + '?v=' + ASSET_VER;

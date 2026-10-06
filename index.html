@@ -269,7 +269,8 @@
             { id: 'sp_tp2', name: 'Taze Hazır Salata: Sezar & Akdeniz Yeşillikleri 250g', category: 'Manav', price: 75.00, discountedPrice: 62.00, image: './images/fresh_salad.png', isDeal: false, tags: ['Taze Paketler'] },
 
             // --- KASAP ---
-            { id: 'p4', name: 'Dana Kıyma %20 Yağlı 500g', category: 'Kasap', price: 260.00, discountedPrice: 225.00, image: './images/minced_meat.png', isDeal: true },
+            { id: 'p4_meat', name: 'Dana Kıyma %20 Yağlı 500g', category: 'Kasap', price: 260.00, discountedPrice: 225.00, image: './images/minced_meat.png', isDeal: false },
+            { id: 'p4', name: 'Sıcak Çikolata 250g (Kahve Dünyası)', category: 'İçecek', price: 85.00, discountedPrice: 68.00, image: './images/hot_chocolate.png', isDeal: true },
             { id: 'p17', name: 'Dana Kuşbaşı 500g (Migros/Uzman Kasap)', category: 'Kasap', price: 290.00, discountedPrice: 255.00, image: './images/beef_cubes.png', isDeal: false },
             { id: 'p18', name: 'Tavuk Bonfile / Göğüs 1kg (Banvit)', category: 'Kasap', price: 210.00, discountedPrice: 179.00, image: './images/chicken_breast.png', isDeal: false },
             { id: 'p19', name: 'Bütün Poşetli Tavuk kg (Şenpiliç)', category: 'Kasap', price: 98.00, discountedPrice: 82.00, image: './images/whole_chicken.png', isDeal: false },
@@ -464,7 +465,7 @@
             { name: 'Sporcu Besinleri', image: './images/protein_bar.png' }
         ];
 
-        const ASSET_VER = '20260921_v7';
+        const ASSET_VER = '20261006_v8';
         function imgUrl(path) {
             if (!path) return '';
             return path + '?v=' + ASSET_VER;
